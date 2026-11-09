@@ -1,0 +1,10 @@
+
+훅(별로 사용 X)
+
+SessionStart : 세션이 시작되거나 이어질 때
+UserPromptSubmit : 사용자 요청 직후, Claude가 처리하기 직전
+PreToolUse : 클로드가 도구(파일 수정, 명령 실행 등)를 쓰기 직전
+PostToolUse : 도구 사용 성공 직후
+Notification : 클로드가 알림 보낼 때(권한 요청, 입력 대기)
+Stop : 클로드가 응답을 마칠 때
+SubagentStop : 서브에이전트가 일을 마칠 때
