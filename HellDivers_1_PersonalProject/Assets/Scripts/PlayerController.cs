@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        _weaponManager.Reload();
         _weaponManager.OnShoot(transform);
         _weaponManager.OnChangeGun();
     }

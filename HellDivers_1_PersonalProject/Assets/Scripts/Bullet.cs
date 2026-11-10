@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IPoolable
@@ -5,10 +6,25 @@ public class Bullet : MonoBehaviour, IPoolable
     [SerializeField] private float _speed;
     private float _coolTime;
     
+    private void OnEnable()
+    {
+        WeaponManager.Instance.OnSpeedChange += SetSpeed;
+    }
+    
     private void Update()
     {
-        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        Fire();
         CountLifeTime();
+    }
+
+    private void SetSpeed(float speed)
+    {
+        _speed = speed;
+    }
+
+    private void Fire()
+    {
+        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
     }
 
     private void CountLifeTime()
