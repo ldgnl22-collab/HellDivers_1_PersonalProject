@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class ObjectPool<T> : MonoBehaviour where T : Component
+public class ObjectPool<T> where T : MonoBehaviour, IPoolable
 {
     private Queue<T> _pool = new Queue<T>();
     private T _prefab;
@@ -17,6 +18,32 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 
         for (int i = 0; i < initSize; i++)
         {
+            var obj = Object.Instantiate(_prefab, go.transform.parent);
+            obj.gameObject.SetActive(false);
+            _pool.Enqueue(obj);
         }
+    }
+
+    public T TakePool()
+    {
+        if (_pool.Count > 0)
+        {
+            T obj = _pool.Dequeue();
+            obj.gameObject.SetActive(true);
+
+            obj.TakeFromPool();
+            
+            return obj;
+        }
+
+        return null;
+    }
+
+    public void ReturnPool(T obj)
+    {
+        obj.gameObject.SetActive(false);
+        _pool.Enqueue(obj);
+        
+        obj.ReturnToPool();
     }
 }
