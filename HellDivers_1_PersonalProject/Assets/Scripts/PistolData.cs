@@ -1,16 +1,22 @@
 using System;
-using UnityEngine;
 
 [Serializable]
-public class PistolData
+public class GunData
 {
-    private float _bulletSpeed = 10f;
-    private float _fireRate = 1f;
-    private int _maxMagazineSize = 12;
+    private float _bulletSpeed;
+    private float _fireRate;
+    private int _maxMagazineSize;
     private int _remainingBullets;
     
     public float BulletSpeed => _bulletSpeed;
     public float FireRate => _fireRate;
     public int MaxMagazineSize => _maxMagazineSize;
     public int RemainingBullets => _remainingBullets;
+
+    public GunData(float bulletSpeed, float fireRate, int maxMagazineSize)
+    {
+        _bulletSpeed = bulletSpeed;
+        _fireRate = fireRate;
+        _maxMagazineSize = maxMagazineSize;
+    }
 }

@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _speed: 20
+  _startPos: {fileID: 4513388946192981842, guid: 6dfab941ac16c1641b57a80428e02b55, type: 3}
