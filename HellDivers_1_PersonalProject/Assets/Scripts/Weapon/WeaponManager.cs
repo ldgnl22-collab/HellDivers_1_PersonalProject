@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +31,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager Instance;
     
     public event Action<float> OnSpeedChange;
+    // public event Action<float> OnSpreadChange;
     private Coroutine _reloadRoutine;
 
     private void Awake()
@@ -119,11 +119,10 @@ public class WeaponManager : MonoBehaviour
             if (Time.time >= _lastFireTime + _currentGun.FireRate)
             {
                 Bullet bullet = PoolManager.Instance.BulletPool.TakePool();
+                
+                // OnSpreadChange.Invoke(1f);
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
-                
-                // bullet.transform.position = startPos.position;
-                // bullet.transform.rotation = startPos.rotation;
                 
                 bullet.transform.position = _currentGun.Prefab.transform.GetChild(1).position;
                 bullet.transform.rotation = _currentGun.Prefab.transform.GetChild(1).rotation;
