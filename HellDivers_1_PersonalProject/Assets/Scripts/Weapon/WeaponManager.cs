@@ -22,6 +22,12 @@ public class WeaponManager : MonoBehaviour
     private GunData _pistolData;
     private GunData _rifleData;
     private GunData _shotgunData;
+
+    [SerializeField] private Transform _gunPos;
+    
+    [SerializeField] private GameObject _pistolPrefab;
+    [SerializeField] private GameObject _riflePrefab;
+    [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
     
@@ -67,6 +73,7 @@ public class WeaponManager : MonoBehaviour
                 {
                     _gunIndex = _guns.Count - 1;
                     _currentGun = _guns[_gunIndex];
+                    SetActiveGun();
                     Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                     OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
@@ -79,14 +86,16 @@ public class WeaponManager : MonoBehaviour
                 {
                     _gunIndex = 0;
                     _currentGun = _guns[_gunIndex];
+                    SetActiveGun();
                     Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                     OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
                 }
                 _gunIndex++;
             }
-        
+
             _currentGun = _guns[_gunIndex];
+            SetActiveGun();
             Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
             OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
         }
@@ -113,8 +122,11 @@ public class WeaponManager : MonoBehaviour
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                 
-                bullet.transform.position = startPos.position;
-                bullet.transform.rotation = startPos.rotation;
+                // bullet.transform.position = startPos.position;
+                // bullet.transform.rotation = startPos.rotation;
+                
+                bullet.transform.position = _currentGun.Prefab.transform.GetChild(1).position;
+                bullet.transform.rotation = _currentGun.Prefab.transform.GetChild(1).rotation;
                 _lastFireTime = Time.time;
             }
         }
@@ -146,9 +158,13 @@ public class WeaponManager : MonoBehaviour
 
     private void Init()
     {
-        _pistolData = new GunData("Pistol", 10, 0.5f, 0.7f, 12);
-        _rifleData = new GunData("Rifle", 15, 0.1f, 1.1f, 30);
-        _shotgunData = new GunData("ShotGun", 20, 1f, 1.5f, 8);
+        GameObject pistol = Instantiate(_pistolPrefab);
+        GameObject rifle = Instantiate(_riflePrefab);
+        GameObject shotgun = Instantiate(_shotgunPrefab);
+        
+        _pistolData = new GunData(pistol, "Pistol", 10, 0.5f, 0.7f, 12);
+        _rifleData = new GunData(rifle, "Rifle", 15, 0.1f, 1.1f, 30);
+        _shotgunData = new GunData(shotgun, "ShotGun", 20, 1f, 1.5f, 8);
 
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
@@ -156,6 +172,34 @@ public class WeaponManager : MonoBehaviour
 
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
+        
+        SetGunReady();
+    }
+
+    private void SetGunReady()
+    {
+        for (int i = 0; i < _guns.Count; i++)
+        {
+            _guns[i].SetPrefabPosition(_gunPos);
+            _guns[i].Prefab.SetActive(false);
+        }
+        
+        SetActiveGun();
+    }
+
+    private void SetActiveGun()
+    {
+        for (int i = 0; i < _guns.Count; i++)
+        {
+            if (_guns[i].Name == _currentGun.Name)
+            {
+                _guns[i].Prefab.SetActive(true);
+            }
+            else
+            {
+                _guns[i].Prefab.SetActive(false);
+            }
+        }
     }
 
     private void SetSingleton()
