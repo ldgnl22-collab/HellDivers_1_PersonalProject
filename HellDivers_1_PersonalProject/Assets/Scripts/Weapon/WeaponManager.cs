@@ -26,6 +26,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager Instance;
     
     public event Action<float> OnSpeedChange;
+    private Coroutine _reloadRoutine;
 
     private void Awake()
     {
@@ -51,6 +52,13 @@ public class WeaponManager : MonoBehaviour
     {
         if (_changeInput.action.WasPressedThisFrame())
         {
+            if (_reloadRoutine != null)
+            {
+                StopCoroutine(_reloadRoutine);
+                _reloadRoutine = null;
+                Debug.Log($"{_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize} 장전 안됨");
+            }
+            
             float inputScroll = _changeInput.action.ReadValue<float>();
 
             if (inputScroll > 0 && _gunIndex >= 0)
@@ -58,8 +66,8 @@ public class WeaponManager : MonoBehaviour
                 if (_gunIndex == 0)
                 {
                     _gunIndex = _guns.Count - 1;
-                    Debug.Log($"{_gunIndex}");
                     _currentGun = _guns[_gunIndex];
+                    Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                     OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
                 }
@@ -70,22 +78,27 @@ public class WeaponManager : MonoBehaviour
                 if (_gunIndex == _guns.Count-1)
                 {
                     _gunIndex = 0;
-                    Debug.Log($"{_gunIndex}");
                     _currentGun = _guns[_gunIndex];
+                    Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                     OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
                 }
                 _gunIndex++;
             }
         
-            Debug.Log($"{_gunIndex}");
             _currentGun = _guns[_gunIndex];
+            Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
             OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
         }
     }
 
     public void OnShoot(Transform startPos)
     {
+        if (_reloadRoutine != null)
+        {
+            return;
+        }
+        
         if (_fireInput.action.IsPressed())
         {
             if (_currentGun.RemainingBullets <= 0)
@@ -98,7 +111,7 @@ public class WeaponManager : MonoBehaviour
             {
                 Bullet bullet = PoolManager.Instance.BulletPool.TakePool();
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
-                Debug.Log($"탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
+                Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                 
                 bullet.transform.position = startPos.position;
                 bullet.transform.rotation = startPos.rotation;
@@ -109,19 +122,33 @@ public class WeaponManager : MonoBehaviour
     
     public void Reload()
     {
+        if (_currentGun.RemainingBullets >= _currentGun.MaxMagazineSize)
+        {
+            return;
+        }
+        
         if (_reloadInput.action.WasPressedThisFrame())
         {
-            _currentGun.SetRemainingBullets(_currentGun.MaxMagazineSize);
-            Debug.Log("장전 완료");
-            _reloadTime = 0;
+            _reloadRoutine = StartCoroutine(ReloadRoutine());
         }
+    }
+
+    private IEnumerator ReloadRoutine()
+    {
+        yield return new WaitForSeconds(_currentGun.ReloadTime);
+        
+        _currentGun.SetRemainingBullets(_currentGun.MaxMagazineSize);
+        Debug.Log("장전 완료");
+        
+        StopCoroutine(ReloadRoutine());
+        _reloadRoutine = null;
     }
 
     private void Init()
     {
-        _pistolData = new GunData(10, 0.5f, 0.7f, 12);
-        _rifleData = new GunData(15, 0.1f, 1.1f, 30);
-        _shotgunData = new GunData(20, 1f, 1.5f, 8);
+        _pistolData = new GunData("Pistol", 10, 0.5f, 0.7f, 12);
+        _rifleData = new GunData("Rifle", 15, 0.1f, 1.1f, 30);
+        _shotgunData = new GunData("ShotGun", 20, 1f, 1.5f, 8);
 
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
