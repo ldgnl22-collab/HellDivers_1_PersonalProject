@@ -232,6 +232,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &832942825 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4513388946192981842, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+  m_PrefabInstance: {fileID: 220282964403504550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &950441154
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1611814709}
+  - component: {fileID: 1611814711}
   - component: {fileID: 1611814708}
   - component: {fileID: 1611814707}
   - component: {fileID: 1611814710}
@@ -414,6 +420,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1611814711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611814706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9092702358a35a4c849fbb1d4cac320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  _targetPos: {fileID: 832942825}
 --- !u!1 &1984487526
 GameObject:
   m_ObjectHideFlags: 0
