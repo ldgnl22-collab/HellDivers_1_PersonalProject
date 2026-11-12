@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Bullet : MonoBehaviour, IPoolable
 {
     [SerializeField] private float _speed;
     private float _coolTime;
+    
+    private float _spreadAngle;
     
     private void OnEnable()
     {
@@ -37,9 +40,25 @@ public class Bullet : MonoBehaviour, IPoolable
             _coolTime = 0;
         }
     }
+    
+    private Quaternion SetSpreadAngle(GunData currentGun)
+    {
+        Quaternion baseAngle = currentGun.Prefab.transform.GetChild(1).rotation;
+        _spreadAngle = currentGun.SpreadRange;
+        
+        float angle = Random.Range(-_spreadAngle/2, _spreadAngle/2);
+
+        Quaternion randomAngle = baseAngle * Quaternion.Euler(0, angle, 0);
+
+        return randomAngle;
+    }
 
     public void TakeFromPool()
     {
+        GunData currentGun = WeaponManager.Instance.CurrentGun;
+        
+        transform.position = currentGun.Prefab.transform.GetChild(1).position;
+        transform.rotation = SetSpreadAngle(currentGun);
     }
 
     public void ReturnToPool()

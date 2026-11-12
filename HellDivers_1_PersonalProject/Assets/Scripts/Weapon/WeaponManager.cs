@@ -19,6 +19,11 @@ public class WeaponManager : MonoBehaviour
 
     private GunData _currentGun;
 
+    public GunData CurrentGun
+    {
+        get { return _currentGun; }
+    }
+
     private GunData _pistolData;
     private GunData _rifleData;
     private GunData _shotgunData;
@@ -30,8 +35,6 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
-
-    private float _spreadAngle;
     
     public event Action<float> OnSpeedChange;
     // public event Action<float> OnSpreadChange;
@@ -121,30 +124,24 @@ public class WeaponManager : MonoBehaviour
             
             if (Time.time >= _lastFireTime + _currentGun.FireRate)
             {
-                Bullet bullet = PoolManager.Instance.BulletPool.TakePool();
+                if (_currentGun.Name.Contains("ShotGun"))
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        PoolManager.Instance.BulletPool.TakePool();
+                    }
+                }
+                else
+                {
+                    PoolManager.Instance.BulletPool.TakePool();
+                }
                 
-                // OnSpreadChange.Invoke(1f);
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
-                
-                bullet.transform.position = _currentGun.Prefab.transform.GetChild(1).position;
-                bullet.transform.rotation = SetSpreadAngle();
                 
                 _lastFireTime = Time.time;
             }
         }
-    }
-
-    private Quaternion SetSpreadAngle()
-    {
-        Quaternion baseAngle = _currentGun.Prefab.transform.GetChild(1).rotation;
-        _spreadAngle = 10f;
-        
-        float angle = Random.Range(-_spreadAngle/2, _spreadAngle/2);
-
-        Quaternion randomAngle = baseAngle * Quaternion.Euler(0, angle, 0);
-
-        return randomAngle;
     }
     
     public void Reload()
@@ -177,9 +174,9 @@ public class WeaponManager : MonoBehaviour
         GameObject rifle = Instantiate(_riflePrefab);
         GameObject shotgun = Instantiate(_shotgunPrefab);
         
-        _pistolData = new GunData(pistol, "Pistol", 10, 0.5f, 0.7f, 12);
-        _rifleData = new GunData(rifle, "Rifle", 15, 0.1f, 1.1f, 30);
-        _shotgunData = new GunData(shotgun, "ShotGun", 20, 1f, 1.5f, 8);
+        _pistolData = new GunData(pistol, "Pistol", 10, 0.5f, 0.7f, 12, 10f);
+        _rifleData = new GunData(rifle, "Rifle", 15, 0.1f, 1.1f, 30, 15f);
+        _shotgunData = new GunData(shotgun, "ShotGun", 20, 1f, 1.5f, 8, 40f);
 
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
