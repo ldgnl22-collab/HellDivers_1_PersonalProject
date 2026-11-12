@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
+
+    private float _spreadAngle;
     
     public event Action<float> OnSpeedChange;
     // public event Action<float> OnSpreadChange;
@@ -125,10 +128,23 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                 
                 bullet.transform.position = _currentGun.Prefab.transform.GetChild(1).position;
-                bullet.transform.rotation = _currentGun.Prefab.transform.GetChild(1).rotation;
+                bullet.transform.rotation = SetSpreadAngle();
+                
                 _lastFireTime = Time.time;
             }
         }
+    }
+
+    private Quaternion SetSpreadAngle()
+    {
+        Quaternion baseAngle = _currentGun.Prefab.transform.GetChild(1).rotation;
+        _spreadAngle = 10f;
+        
+        float angle = Random.Range(-_spreadAngle/2, _spreadAngle/2);
+
+        Quaternion randomAngle = baseAngle * Quaternion.Euler(0, angle, 0);
+
+        return randomAngle;
     }
     
     public void Reload()
