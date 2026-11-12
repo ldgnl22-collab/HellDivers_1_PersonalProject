@@ -3,6 +3,10 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance { get; private set; }
+    
+    [SerializeField] private Bullet _bulletPrefab;
+    
+    public ObjectPool<Bullet> BulletPool;
 
     private void Awake() => SetSingleton();
 
@@ -10,6 +14,7 @@ public class PoolManager : MonoBehaviour
 
     private void CreatePools()
     {
+        BulletPool = new ObjectPool<Bullet>(_bulletPrefab, 50, transform);
     }
     
     private void SetSingleton()

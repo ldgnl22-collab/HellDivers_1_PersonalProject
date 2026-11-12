@@ -18,8 +18,9 @@ public class ObjectPool<T> where T : MonoBehaviour, IPoolable
 
         for (int i = 0; i < initSize; i++)
         {
-            var obj = Object.Instantiate(_prefab, go.transform.parent);
+            var obj = Object.Instantiate(_prefab);
             obj.gameObject.SetActive(false);
+            obj.transform.SetParent(go.transform);
             _pool.Enqueue(obj);
         }
     }
