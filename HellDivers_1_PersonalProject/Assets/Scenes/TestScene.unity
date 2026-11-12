@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &661620948 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1347034032422200140, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-  m_PrefabInstance: {fileID: 220282964403504550}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &677287836
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,34 +549,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _rifle
-      value: 
-      objectReference: {fileID: 7908788915771074049, guid: b7b026ac322fb3a4eb8bba05410dfdbe, type: 3}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _gunPos
-      value: 
-      objectReference: {fileID: 661620948}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _pistol
-      value: 
-      objectReference: {fileID: 1692744414817355510, guid: 5ad461a1f4a489e4ebdce438fdc376b7, type: 3}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _shotgun
-      value: 
-      objectReference: {fileID: 6314837073334739310, guid: 503ec2b65ef78eb4caa289eb027309a2, type: 3}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _riflePrefab
-      value: 
-      objectReference: {fileID: 7908788915771074049, guid: b7b026ac322fb3a4eb8bba05410dfdbe, type: 3}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _pistolPrefab
-      value: 
-      objectReference: {fileID: 1692744414817355510, guid: 5ad461a1f4a489e4ebdce438fdc376b7, type: 3}
-    - target: {fileID: 2433746354790095189, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: _shotgunPrefab
-      value: 
-      objectReference: {fileID: 6314837073334739310, guid: 503ec2b65ef78eb4caa289eb027309a2, type: 3}
     - target: {fileID: 4513388946192981842, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -625,10 +592,6 @@ PrefabInstance:
     - target: {fileID: 5421432262858771278, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5793101615208470163, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
-      propertyPath: m_Name
-      value: GunPos
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

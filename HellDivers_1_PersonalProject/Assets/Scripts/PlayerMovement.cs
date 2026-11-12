@@ -5,6 +5,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private Vector2 _moveInput;
     private Vector2 _mousePosInput;
+    
+    private bool _isStratagem;
+    public bool IsStratagem { get{ return _isStratagem; } }
 
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rayDistance = 50f;
@@ -12,13 +15,39 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-        Move();
-        MousePosRay();
+        Stratagem();
     }
 
+    public void OnStratagem(InputAction.CallbackContext context)
+    {
+        _isStratagem = context.ReadValueAsButton();
+    }
+    
     public void OnMove(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void Stratagem()
+    {
+        if (_isStratagem)
+        {
+            Debug.Log("Stratagem");
+            Arrow();
+        }
+        else
+        {
+            Move();
+            MousePosRay();
+        }
+    }
+
+    private void Arrow()
+    {
+        if (_moveInput.x >= 1f || _moveInput.x <= -1f || _moveInput.y >= 1f || _moveInput.y <= -1f)
+        {
+            Debug.Log($"Stratagem : {_moveInput.x}, {_moveInput.y}");
+        }
     }
     
     private void Move()

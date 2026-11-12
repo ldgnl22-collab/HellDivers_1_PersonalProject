@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_playerMovement.IsStratagem) return;
+        
         _weaponManager.Reload();
         _weaponManager.OnShoot(transform);
         _weaponManager.OnChangeGun();
@@ -35,6 +37,9 @@ public class PlayerController : MonoBehaviour
 
     private void BindInputEvents()
     {
+        _playerInput.Stratagem.Stratagem.started += _playerMovement.OnStratagem;
+        _playerInput.Stratagem.Stratagem.canceled += _playerMovement.OnStratagem;
+        
         _playerInput.Player.Move.performed += _playerMovement.OnMove;
         _playerInput.Player.Move.canceled += _playerMovement.OnMove;
 
@@ -43,6 +48,9 @@ public class PlayerController : MonoBehaviour
 
     private void UnbindInputEvents()
     {
+        _playerInput.Stratagem.Stratagem.started -= _playerMovement.OnStratagem;
+        _playerInput.Stratagem.Stratagem.canceled -= _playerMovement.OnStratagem;
+        
         _playerInput.Player.Move.performed -= _playerMovement.OnMove;
         _playerInput.Player.Move.canceled -= _playerMovement.OnMove;
         
