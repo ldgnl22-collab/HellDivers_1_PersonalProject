@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour, IPoolable
     private float _coolTime;
     
     private float _spreadAngle;
+
+    [SerializeField] private LayerMask _enemyLayer;
     
     private void OnEnable()
     {
@@ -24,15 +26,20 @@ public class Bullet : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter(Collider other)
     {
-        IDamageable damageable = GetComponent<IDamageable>();
-
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        
         if (damageable != null)
         {
-            damageable.TakeDamage(_damage);
-            
-            PoolManager.Instance.BulletPool.ReturnPool(this);
-            _coolTime = 0;
+            GetDamage(damageable);
         }
+    }
+
+    private void GetDamage(IDamageable damageable)
+    {
+        damageable.TakeDamage(_damage);
+
+        PoolManager.Instance.BulletPool.ReturnPool(this);
+        _coolTime = 0;
     }
 
     private void SetDamage(int damage)

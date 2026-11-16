@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b7f683f171d9545a035a868f3082b2, type: 3}
   m_Name: ShortRangeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  _maxHp: 20
+  _maxHp: 50
   _detectRange: 10
   _attackRange: 2
   _moveSpeed: 4

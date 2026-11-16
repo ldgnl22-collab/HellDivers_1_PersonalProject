@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyData _stat;
 
-    [SerializeField] private int _currentHp;
+    [SerializeField] protected int _currentHp;
     [SerializeField] private Vector3 _spawnPos;
     
     [SerializeField] private Transform _target;
@@ -35,12 +35,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         CheckDead();
         StateMachine.Execute();
-    }
-    
-    public void TakeDamage(int damage)
-    {
-        _currentHp -= damage;
-        Debug.Log($"Enemy HP : {_currentHp}");
     }
 
     public float GetTargetDistance()
