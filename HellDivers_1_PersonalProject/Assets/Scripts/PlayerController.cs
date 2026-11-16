@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private PlayerInput _playerInput;
-
     private PlayerMovement _playerMovement;
     private WeaponManager _weaponManager;
 
@@ -24,9 +23,9 @@ public class PlayerController : MonoBehaviour
     {
         if (_playerMovement.IsStratagem) return;
         
-        _weaponManager.Reload();
-        _weaponManager.OnShoot(transform);
-        _weaponManager.OnChangeGun();
+        WeaponManager.Instance.Reload();
+        WeaponManager.Instance.OnShoot(transform);
+        WeaponManager.Instance.OnChangeGun();
     }
 
     private void OnDisable()
@@ -62,6 +61,5 @@ public class PlayerController : MonoBehaviour
         _playerInput = new PlayerInput();
         
         _playerMovement = GetComponent<PlayerMovement>();
-        _weaponManager = GetComponent<WeaponManager>();
     }
 }
