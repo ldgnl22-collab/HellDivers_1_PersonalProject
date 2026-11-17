@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private PlayerMovement _playerMovement;
     private WeaponManager _weaponManager;
 
+    private int _currentHp;
+
     private void Awake()
     {
         Init();
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        CheckDie();
+        
         if (_playerMovement.IsStratagem) return;
         
         WeaponManager.Instance.Reload();
@@ -56,9 +60,26 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerInput.Player.MousePos.performed -= _playerMovement.OnMousePosition;
     }
 
+    private void CheckDie()
+    {
+        if (_currentHp > 0)
+        {
+            return;
+        }
+        
+        _playerInput.Disable();
+        UnbindInputEvents();
+    }
+
     public void TakeDamage(int damage)
     {
-        
+        if (_currentHp <= 0)
+        {
+            _currentHp = 0;
+            return;
+        }
+        Debug.Log($"플레이어 체력 : {_currentHp}");
+        _currentHp -= damage;
     }
 
     private void Init()

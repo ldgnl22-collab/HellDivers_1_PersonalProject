@@ -33,6 +33,8 @@ public class LongRangeEnemy : Enemy
             if (Time.time >= _lastFireTime + _fireRate)
             {
                 Bullet bullet = PoolManager.Instance.BulletPool.TakePool();
+                bullet.SetDamage(5);
+                bullet.SetSpeed(17);
                 bullet.transform.position = transform.GetChild(1).position;
                 bullet.transform.rotation = SetSpreadAngle();
 

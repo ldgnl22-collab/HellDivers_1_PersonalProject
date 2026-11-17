@@ -42,12 +42,12 @@ public class Bullet : MonoBehaviour, IPoolable
         _coolTime = 0;
     }
 
-    private void SetDamage(int damage)
+    public void SetDamage(int damage)
     {
         _damage = damage;
     }
 
-    private void SetSpeed(float speed)
+    public void SetSpeed(float speed)
     {
         _speed = speed;
     }
