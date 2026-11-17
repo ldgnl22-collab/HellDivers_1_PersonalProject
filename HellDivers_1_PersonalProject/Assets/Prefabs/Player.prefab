@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3046241522544164506}
   - component: {fileID: 5056925095334461016}
   - component: {fileID: 4760405857996641233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7431699778337369625}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,8 @@ GameObject:
   - component: {fileID: 4513388946192981842}
   - component: {fileID: 5390566633016562086}
   - component: {fileID: 8878421137493903239}
-  m_Layer: 0
+  - component: {fileID: 64431760028398166}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,11 +206,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a61c30707174434588dce4557160b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  _moveSpeed: 7
+  _moveSpeed: 11
   _rayDistance: 100
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!54 &64431760028398166
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421432262858771278}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &5793101615208470163
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347034032422200140}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GunPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

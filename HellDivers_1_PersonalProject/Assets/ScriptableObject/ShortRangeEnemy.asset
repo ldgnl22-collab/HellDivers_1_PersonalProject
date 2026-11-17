@@ -15,6 +15,7 @@ MonoBehaviour:
   _maxHp: 50
   _detectRange: 10
   _attackRange: 2
+  _minAttackRange: 1
   _moveSpeed: 4
   _attackInterval: 1
   _name: Warrior

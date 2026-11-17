@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: LongRangeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   _maxHp: 40
-  _detectRange: 10
-  _attackRange: 7
+  _detectRange: 15
+  _attackRange: 9
+  _minAttackRange: 6
   _moveSpeed: 5
   _attackInterval: 0.6
   _name: Shooter

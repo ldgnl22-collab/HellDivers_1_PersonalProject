@@ -14,7 +14,7 @@ public class PoolManager : MonoBehaviour
 
     private void CreatePools()
     {
-        BulletPool = new ObjectPool<Bullet>(_bulletPrefab, 50, transform);
+        BulletPool = new ObjectPool<Bullet>(_bulletPrefab, 100, transform);
     }
     
     private void SetSingleton()

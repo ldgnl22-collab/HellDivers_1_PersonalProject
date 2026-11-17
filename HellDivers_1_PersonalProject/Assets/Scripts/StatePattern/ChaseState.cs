@@ -25,7 +25,7 @@ public class ChaseState : IState
             return;
         }
 
-        if (dis <= _enemy.Stat.AttackRange)
+        if (dis <= _enemy.Stat.AttackRange && dis >= _enemy.Stat.MinAttackRange)
         {
             _enemy.StateMachine.ChangeState(_enemy.AttackState);
             return;

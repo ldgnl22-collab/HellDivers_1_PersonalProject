@@ -16,7 +16,9 @@ public class IdleState : IState
 
     public void Execute()
     {
-        if (_enemy.GetTargetDistance() <= _enemy.Stat.DetectRange)
+        float dis = _enemy.GetTargetDistance();
+        
+        if (dis <= _enemy.Stat.DetectRange)
         {
             _enemy.StateMachine.ChangeState(_enemy.ChaseState);
             return;
