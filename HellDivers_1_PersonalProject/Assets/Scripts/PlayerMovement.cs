@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,9 +45,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Arrow()
     {
-        if (_moveInput.x >= 1f || _moveInput.x <= -1f || _moveInput.y >= 1f || _moveInput.y <= -1f)
+        if (_moveInput.y >= 1f)
         {
-            Debug.Log($"Stratagem : {_moveInput.x}, {_moveInput.y}");
+            Debug.Log($"_moveInput.y +: {_moveInput}");
+        }
+        else if (_moveInput.y <= -1f)
+        {
+            Debug.Log($"_moveInput.y -: {_moveInput}");
+        }
+        else if (_moveInput.x >= 1f)
+        {
+            Debug.Log($"_moveInput.x +: {_moveInput}");
+        }
+        else if (_moveInput.x <= -1f)
+        {
+            Debug.Log($"_moveInput.x -: {_moveInput}");
         }
     }
     

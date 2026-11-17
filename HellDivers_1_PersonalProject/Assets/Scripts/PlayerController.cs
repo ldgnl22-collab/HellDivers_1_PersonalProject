@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
     private WeaponManager _weaponManager;
-
+    
     private int _currentHp;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        CheckDie();
+        // CheckDie();
         
         if (_playerMovement.IsStratagem) return;
         
