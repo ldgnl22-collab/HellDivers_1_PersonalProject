@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
         _playerInput.Player.Move.canceled -= _playerMovement.OnMove;
         
         _playerInput.Player.MousePos.performed -= _playerMovement.OnMousePosition;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        
     }
 
     private void Init()

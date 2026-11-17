@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable, IPoolable
 {
     [SerializeField] private EnemyData _stat;
 
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         ResetHp();
-        ResetMyPosition();
+        // ResetSpawnPosition(transform.position);
         StateMachine.Initialize(IdleState);
     }
 
@@ -37,9 +37,32 @@ public class Enemy : MonoBehaviour
         StateMachine.Execute();
     }
 
+    public void TakeFromPool()
+    {
+    }
+
+    public void ReturnToPool()
+    {
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (_currentHp <= 0)
+        {
+            return;
+        }
+        _currentHp -= damage;
+        Debug.Log($"Enemy HP : {_currentHp}");
+    }
+
     public float GetTargetDistance()
     {
         return Vector3.Distance(_target.position, transform.position);
+    }
+    
+    public void ResetSpawnPosition(Vector3 target)
+    {
+        _spawnPos = target;
     }
 
     private void CheckDead()
@@ -65,10 +88,5 @@ public class Enemy : MonoBehaviour
     private void ResetHp()
     {
         _currentHp = _stat.MaxHp;
-    }
-
-    private void ResetMyPosition()
-    {
-        _spawnPos = transform.position;
     }
 }

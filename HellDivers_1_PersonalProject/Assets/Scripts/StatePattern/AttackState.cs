@@ -42,5 +42,9 @@ public class AttackState : IState
             Debug.Log("공격");
             _elapsed = 0f;
         }
+        Vector3 targetDir = (_enemy.Target.position - _enemy.transform.position).normalized;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDir);
+        _enemy.transform.rotation = Quaternion.Slerp(_enemy.transform.rotation, targetRotation, 0.3f);
     }
 }

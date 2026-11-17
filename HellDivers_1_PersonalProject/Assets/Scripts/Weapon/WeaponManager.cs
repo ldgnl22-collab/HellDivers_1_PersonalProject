@@ -126,14 +126,16 @@ public class WeaponManager : MonoBehaviour
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        PoolManager.Instance.BulletPool.TakePool();
+                        IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
+                        poolable.TakeFromPool();
                         OnSpeedChange.Invoke(_currentGun.BulletSpeed);
                         OnDamageChange.Invoke(_currentGun.Damage);
                     }
                 }
                 else
                 {
-                    PoolManager.Instance.BulletPool.TakePool();
+                    IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
+                    poolable.TakeFromPool();
                     OnSpeedChange.Invoke(_currentGun.BulletSpeed);
                     OnDamageChange.Invoke(_currentGun.Damage);
                 }
