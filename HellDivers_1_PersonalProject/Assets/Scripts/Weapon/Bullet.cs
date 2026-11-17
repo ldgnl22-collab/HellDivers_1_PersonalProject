@@ -4,14 +4,18 @@ using Random = UnityEngine.Random;
 
 public class Bullet : MonoBehaviour, IPoolable
 {
-    [SerializeField] private float _speed;
+    private float _speed;
+    private int _damage;
     private float _coolTime;
     
     private float _spreadAngle;
+
+    [SerializeField] private LayerMask _enemyLayer;
     
     private void OnEnable()
     {
         WeaponManager.Instance.OnSpeedChange += SetSpeed;
+        WeaponManager.Instance.OnDamageChange += SetDamage;
     }
     
     private void Update()
@@ -20,7 +24,30 @@ public class Bullet : MonoBehaviour, IPoolable
         CountLifeTime();
     }
 
-    private void SetSpeed(float speed)
+    private void OnTriggerEnter(Collider other)
+    {
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        
+        if (damageable != null)
+        {
+            GetDamage(damageable);
+        }
+    }
+
+    private void GetDamage(IDamageable damageable)
+    {
+        damageable.TakeDamage(_damage);
+
+        PoolManager.Instance.BulletPool.ReturnPool(this);
+        _coolTime = 0;
+    }
+
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
+    }
+
+    public void SetSpeed(float speed)
     {
         _speed = speed;
     }

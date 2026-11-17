@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsStratagem { get{ return _isStratagem; } }
 
     [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _rayDistance = 50f;
+    [SerializeField] private float _rayDistance = 100f;
     [SerializeField] private LayerMask _groundLayer;
     
     private void Update()

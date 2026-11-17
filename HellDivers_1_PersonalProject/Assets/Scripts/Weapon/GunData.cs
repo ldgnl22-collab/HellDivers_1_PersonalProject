@@ -12,6 +12,7 @@ public class GunData
     private int _maxMagazineSize;
     private int _remainingBullets;
     private float _spreadRange;
+    private int _damage;
     
     public GameObject Prefab => _prefab;
     public string Name => _name;
@@ -21,8 +22,9 @@ public class GunData
     public int MaxMagazineSize => _maxMagazineSize;
     public int RemainingBullets => _remainingBullets;
     public float SpreadRange => _spreadRange;
+    public int Damage => _damage;
 
-    public GunData(GameObject prefab, string name, float bulletSpeed, float fireRate, float reloadTime, int maxMagazineSize, float spreadRange)
+    public GunData(GameObject prefab, string name, float bulletSpeed, float fireRate, float reloadTime, int maxMagazineSize, float spreadRange, int damage)
     {
         _prefab = prefab;
         _name = name;
@@ -32,6 +34,7 @@ public class GunData
         _maxMagazineSize = maxMagazineSize;
         _remainingBullets = maxMagazineSize;
         _spreadRange = spreadRange;
+        _damage = damage;
     }
     
     public void SetRemainingBullets(int remainingBullets)

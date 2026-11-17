@@ -35,9 +35,10 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
-    
+
+    public event Action<int> OnDamageChange;
     public event Action<float> OnSpeedChange;
-    // public event Action<float> OnSpreadChange;
+    
     private Coroutine _reloadRoutine;
 
     private void Awake()
@@ -81,7 +82,6 @@ public class WeaponManager : MonoBehaviour
                     _currentGun = _guns[_gunIndex];
                     SetActiveGun();
                     Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
-                    OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
                 }
                 _gunIndex--;
@@ -94,7 +94,6 @@ public class WeaponManager : MonoBehaviour
                     _currentGun = _guns[_gunIndex];
                     SetActiveGun();
                     Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
-                    OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
                     return;
                 }
                 _gunIndex++;
@@ -103,7 +102,6 @@ public class WeaponManager : MonoBehaviour
             _currentGun = _guns[_gunIndex];
             SetActiveGun();
             Debug.Log($"{_currentGun.Name} {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
-            OnSpeedChange.Invoke(_guns[_gunIndex].BulletSpeed);
         }
     }
 
@@ -128,12 +126,18 @@ public class WeaponManager : MonoBehaviour
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        PoolManager.Instance.BulletPool.TakePool();
+                        IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
+                        poolable.TakeFromPool();
+                        OnSpeedChange.Invoke(_currentGun.BulletSpeed);
+                        OnDamageChange.Invoke(_currentGun.Damage);
                     }
                 }
                 else
                 {
-                    PoolManager.Instance.BulletPool.TakePool();
+                    IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
+                    poolable.TakeFromPool();
+                    OnSpeedChange.Invoke(_currentGun.BulletSpeed);
+                    OnDamageChange.Invoke(_currentGun.Damage);
                 }
                 
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
@@ -174,9 +178,9 @@ public class WeaponManager : MonoBehaviour
         GameObject rifle = Instantiate(_riflePrefab);
         GameObject shotgun = Instantiate(_shotgunPrefab);
         
-        _pistolData = new GunData(pistol, "Pistol", 10, 0.5f, 0.7f, 12, 10f);
-        _rifleData = new GunData(rifle, "Rifle", 15, 0.1f, 1.1f, 30, 15f);
-        _shotgunData = new GunData(shotgun, "ShotGun", 20, 1f, 1.5f, 8, 40f);
+        _pistolData = new GunData(pistol, "Pistol", 10f, 0.5f, 0.7f, 12, 10f, 5);
+        _rifleData = new GunData(rifle, "Rifle", 15f, 0.1f, 1.1f, 30, 15f, 3);
+        _shotgunData = new GunData(shotgun, "ShotGun", 20f, 1f, 1.5f, 8, 40f, 7);
 
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
