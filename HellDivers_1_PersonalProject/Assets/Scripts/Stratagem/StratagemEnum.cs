@@ -1,5 +1,5 @@
 
-enum ArrowType
+public enum ArrowType
 {
     Up,
     Down,

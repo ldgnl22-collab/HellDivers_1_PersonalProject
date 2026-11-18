@@ -42,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            if (_stratagemSystem.ListInputStratagem != null)
+            {
+                _stratagemSystem.ResetStratagem();
+            }
+            
             Move();
             MousePosRay();
         }

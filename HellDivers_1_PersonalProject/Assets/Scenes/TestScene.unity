@@ -893,6 +893,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: _listStratagemData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d75aca28ea368984f8cfc59616c2df56, type: 2}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f9d760b22c1f0245b9c693af9b17eaa, type: 2}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ddab14c3ba9b90a41a73e0936da0a04b, type: 2}
     - target: {fileID: 4513388946192981842, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

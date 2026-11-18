@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class StratagemSystem : MonoBehaviour
 {
-    private List<int> _stratagem = new();
+    [SerializeField] private List<ArrowType> _listInputStratagem = new();
+    public List<ArrowType> ListInputStratagem => _listInputStratagem;
     
     [SerializeField] private InputActionReference _wKey;
     [SerializeField] private InputActionReference _aKey;
@@ -12,6 +13,10 @@ public class StratagemSystem : MonoBehaviour
     [SerializeField] private InputActionReference _dKey;
 
     private float _elapsed;
+
+    [SerializeField] private List<StratagemData> _listStratagemData = new();
+
+    [SerializeField] private List<StratagemData> _listCheckStratagem = new();
 
     private void Start()
     {
@@ -43,24 +48,56 @@ public class StratagemSystem : MonoBehaviour
     {
         if (_wKey.action.WasPressedThisFrame())
         {
-            _stratagem.Add((int)ArrowType.Up);
-            _elapsed = 0f;
+            InputKeyDown(ArrowType.Up);
         }
         else if (_aKey.action.WasPressedThisFrame())
         {
-            _stratagem.Add((int)ArrowType.Left);
-            _elapsed = 0f;
+            InputKeyDown(ArrowType.Left);
         }
         else if (_sKey.action.WasPressedThisFrame())
         {
-            _stratagem.Add((int)ArrowType.Down);
-            _elapsed = 0f;
+            InputKeyDown(ArrowType.Down);
         }
         else if (_dKey.action.WasPressedThisFrame())
         {
-            _stratagem.Add((int)ArrowType.Right);
-            _elapsed = 0f;
+            InputKeyDown(ArrowType.Right);
         }
+    }
+
+    private void CheckStratagem(int index)
+    {
+        _listCheckStratagem.Clear();
+        
+        for (int i = 0; i < _listStratagemData.Count; i++)
+        {
+            if (index >= _listStratagemData[i].Stratagem.Count
+                || _listStratagemData[i].Stratagem[index] != _listInputStratagem[index])
+            {
+                Debug.Log($"{_listStratagemData[i].Name} 스트라타잼 실패");
+                continue;
+            }
+            
+            _listCheckStratagem.Add(_listStratagemData[i]);
+            
+            if ((index + 1) == _listStratagemData[i].Stratagem.Count)
+            {
+                Debug.Log($"{_listStratagemData[i].Name} 스트라타잼 성공");
+            }
+        }
+    }
+    
+    public void ResetStratagem()
+    {
+        _listInputStratagem.Clear();
+        _elapsed = 0f;
+        // UI 로 전달
+    }
+
+    private void InputKeyDown(ArrowType arrowType)
+    {
+        _listInputStratagem.Add(arrowType);
+        _elapsed = 0f;
+        CheckStratagem(_listInputStratagem.Count - 1);
     }
 
     private void InputDelayStratagem(float delayTime)
@@ -71,13 +108,6 @@ public class StratagemSystem : MonoBehaviour
         {
             ResetStratagem();
         }
-    }
-
-    private void ResetStratagem()
-    {
-        _stratagem.Clear();
-        _elapsed = 0f;
-        // UI 로 전달
     }
 
     private void Init()
