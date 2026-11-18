@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private Vector2 _mousePosInput;
     
+    private StratagemSystem _stratagemSystem;
+    
     private bool _isStratagem;
     public bool IsStratagem { get{ return _isStratagem; } }
 
@@ -35,33 +37,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isStratagem)
         {
-            Debug.Log("Stratagem");
-            Arrow();
+            // Debug.Log("Stratagem");
+            _stratagemSystem.InputStratagem();
         }
         else
         {
             Move();
             MousePosRay();
-        }
-    }
-
-    private void Arrow()
-    {
-        if (_moveInput.y >= 1f)
-        {
-            Debug.Log($"_moveInput.y +: {_moveInput}");
-        }
-        else if (_moveInput.y <= -1f)
-        {
-            Debug.Log($"_moveInput.y -: {_moveInput}");
-        }
-        else if (_moveInput.x >= 1f)
-        {
-            Debug.Log($"_moveInput.x +: {_moveInput}");
-        }
-        else if (_moveInput.x <= -1f)
-        {
-            Debug.Log($"_moveInput.x -: {_moveInput}");
         }
     }
     
@@ -91,5 +73,10 @@ public class PlayerMovement : MonoBehaviour
             
             transform.LookAt(dir);
         }
+    }
+
+    public void Init()
+    {
+        _stratagemSystem = GetComponent<StratagemSystem>();
     }
 }

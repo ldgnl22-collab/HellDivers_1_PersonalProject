@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerInput = new PlayerInput();
         
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerMovement.Init();
     }
 
     private void SetSingleton()

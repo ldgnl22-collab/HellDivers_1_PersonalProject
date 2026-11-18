@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 4513388946192981842}
   - component: {fileID: 5390566633016562086}
   - component: {fileID: 8878421137493903239}
+  - component: {fileID: 2874806535960750085}
   - component: {fileID: 64431760028398166}
   - component: {fileID: 3845670959111850630}
   m_Layer: 9
@@ -188,6 +189,22 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &2874806535960750085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421432262858771278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8328bd728966f340a7dedfbb8b46f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StratagemSystem
+  _wKey: {fileID: 2320865762990218127, guid: 36446c8760c9e2748b2e7a847d45bb1d, type: 3}
+  _aKey: {fileID: -6124336868139439641, guid: 36446c8760c9e2748b2e7a847d45bb1d, type: 3}
+  _sKey: {fileID: 2285541825886192955, guid: 36446c8760c9e2748b2e7a847d45bb1d, type: 3}
+  _dKey: {fileID: 4377906263960730490, guid: 36446c8760c9e2748b2e7a847d45bb1d, type: 3}
 --- !u!54 &64431760028398166
 Rigidbody:
   m_ObjectHideFlags: 0

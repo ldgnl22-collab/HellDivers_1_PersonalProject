@@ -254,9 +254,36 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Arrow"",
+                    ""name"": ""Up"",
                     ""type"": ""Button"",
                     ""id"": ""2138557e-12f8-4eea-84f7-1024ae5761b0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""398d5f7f-e0b4-467a-93c6-cc2d7c23ff8c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7bfddcd-ac7d-4f1c-84be-5fbc4aabce8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a06012c-ba47-4c42-bb94-00cc17ffbea3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -282,40 +309,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cef48319-5089-4d0a-8243-b74f4211104f"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Arrow"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5630b91c-49aa-4ee5-84cd-db55dbe8208b"",
+                    ""id"": ""3e508c3b-1bf7-477f-9f52-7d04a7948400"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c4cae5b6-4e05-4460-bf3b-79fb88491e74"",
+                    ""id"": ""28ebeff3-b70b-44ff-b653-6028c46ab42e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b10006d-779e-4743-87c3-0b03d2999c26"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -334,7 +361,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Stratagem
         m_Stratagem = asset.FindActionMap("Stratagem", throwIfNotFound: true);
         m_Stratagem_Stratagem = m_Stratagem.FindAction("Stratagem", throwIfNotFound: true);
-        m_Stratagem_Arrow = m_Stratagem.FindAction("Arrow", throwIfNotFound: true);
+        m_Stratagem_Up = m_Stratagem.FindAction("Up", throwIfNotFound: true);
+        m_Stratagem_Down = m_Stratagem.FindAction("Down", throwIfNotFound: true);
+        m_Stratagem_Left = m_Stratagem.FindAction("Left", throwIfNotFound: true);
+        m_Stratagem_Right = m_Stratagem.FindAction("Right", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -557,7 +587,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Stratagem;
     private List<IStratagemActions> m_StratagemActionsCallbackInterfaces = new List<IStratagemActions>();
     private readonly InputAction m_Stratagem_Stratagem;
-    private readonly InputAction m_Stratagem_Arrow;
+    private readonly InputAction m_Stratagem_Up;
+    private readonly InputAction m_Stratagem_Down;
+    private readonly InputAction m_Stratagem_Left;
+    private readonly InputAction m_Stratagem_Right;
     /// <summary>
     /// Provides access to input actions defined in input action map "Stratagem".
     /// </summary>
@@ -574,9 +607,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Stratagem => m_Wrapper.m_Stratagem_Stratagem;
         /// <summary>
-        /// Provides access to the underlying input action "Stratagem/Arrow".
+        /// Provides access to the underlying input action "Stratagem/Up".
         /// </summary>
-        public InputAction @Arrow => m_Wrapper.m_Stratagem_Arrow;
+        public InputAction @Up => m_Wrapper.m_Stratagem_Up;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Down".
+        /// </summary>
+        public InputAction @Down => m_Wrapper.m_Stratagem_Down;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Left".
+        /// </summary>
+        public InputAction @Left => m_Wrapper.m_Stratagem_Left;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Right".
+        /// </summary>
+        public InputAction @Right => m_Wrapper.m_Stratagem_Right;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -606,9 +651,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Stratagem.started += instance.OnStratagem;
             @Stratagem.performed += instance.OnStratagem;
             @Stratagem.canceled += instance.OnStratagem;
-            @Arrow.started += instance.OnArrow;
-            @Arrow.performed += instance.OnArrow;
-            @Arrow.canceled += instance.OnArrow;
+            @Up.started += instance.OnUp;
+            @Up.performed += instance.OnUp;
+            @Up.canceled += instance.OnUp;
+            @Down.started += instance.OnDown;
+            @Down.performed += instance.OnDown;
+            @Down.canceled += instance.OnDown;
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
         }
 
         /// <summary>
@@ -623,9 +677,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Stratagem.started -= instance.OnStratagem;
             @Stratagem.performed -= instance.OnStratagem;
             @Stratagem.canceled -= instance.OnStratagem;
-            @Arrow.started -= instance.OnArrow;
-            @Arrow.performed -= instance.OnArrow;
-            @Arrow.canceled -= instance.OnArrow;
+            @Up.started -= instance.OnUp;
+            @Up.performed -= instance.OnUp;
+            @Up.canceled -= instance.OnUp;
+            @Down.started -= instance.OnDown;
+            @Down.performed -= instance.OnDown;
+            @Down.canceled -= instance.OnDown;
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
         }
 
         /// <summary>
@@ -717,11 +780,32 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnStratagem(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Arrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Up" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnArrow(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Down" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRight(InputAction.CallbackContext context);
     }
 }
