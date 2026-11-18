@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+    public static PlayerController Instance { get; private set; }
+    
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
     private WeaponManager _weaponManager;
@@ -13,6 +15,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Awake()
     {
         Init();
+        SetSingleton();
     }
     
     private void OnEnable()
@@ -87,5 +90,17 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerInput = new PlayerInput();
         
         _playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

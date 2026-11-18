@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     private void Awake()
     {
         CreateState();
+        SetPlayerPos();
     }
     
     private void Start()
@@ -63,6 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     public void ResetSpawnPosition(Vector3 target)
     {
         _spawnPos = target;
+        transform.position = _spawnPos;
     }
 
     private void CheckDead()
@@ -88,5 +90,10 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     private void ResetHp()
     {
         _currentHp = _stat.MaxHp;
+    }
+
+    private void SetPlayerPos()
+    {
+        _target = PlayerController.Instance.transform;
     }
 }

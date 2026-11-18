@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rayDistance = 100f;
     [SerializeField] private LayerMask _groundLayer;
+
+    public event Action<Transform> OnPlayerMove;
     
     private void Update()
     {
@@ -69,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         moveDir.Normalize();
         
         transform.Translate(moveDir * _moveSpeed * Time.deltaTime, Space.World);
+        OnPlayerMove?.Invoke(transform);
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
