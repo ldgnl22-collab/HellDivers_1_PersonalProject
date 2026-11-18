@@ -70,13 +70,28 @@ public class StratagemSystem : MonoBehaviour
         {
             if (_listCheckStratagem[i].Stratagem[index] != _listInputStratagem[i])
             {
+                if (_listCheckStratagem.Count <= 0)
+                {
+                    Debug.Log($"스트라타잼 실패");
+                    return;
+                }
                 _listCheckStratagem.RemoveAt(i);
+            }
+            else
+            {
+                StratagemData data = _listCheckStratagem[0];
+                if (_listCheckStratagem.Count <= 0)
+                {
+                    Debug.Log($"{data} 스트라타잼 성공");
+                    // CallStratagem();
+                }
             }
         }
     }
 
     private void CallStratagem()
     {
+        Debug.Log($"스트라타잼 성공");
     }
     
     public void ResetStratagem()
