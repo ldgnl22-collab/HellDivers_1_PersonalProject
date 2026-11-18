@@ -16,7 +16,7 @@ public class StratagemSystem : MonoBehaviour
 
     [SerializeField] private List<StratagemData> _listStratagemData = new();
 
-    [SerializeField] private List<StratagemData> _listCheckStratagem = new();
+    [SerializeField] private List<StratagemData> _listCheckStratagem;
 
     private void Start()
     {
@@ -66,30 +66,24 @@ public class StratagemSystem : MonoBehaviour
 
     private void CheckStratagem(int index)
     {
-        _listCheckStratagem.Clear();
-        
-        for (int i = 0; i < _listStratagemData.Count; i++)
+        for (int i = 0; i < _listCheckStratagem.Count; i++)
         {
-            if (index >= _listStratagemData[i].Stratagem.Count
-                || _listStratagemData[i].Stratagem[index] != _listInputStratagem[index])
+            if (_listCheckStratagem[i].Stratagem[index] != _listInputStratagem[i])
             {
-                Debug.Log($"{_listStratagemData[i].Name} 스트라타잼 실패");
-                continue;
-            }
-            
-            _listCheckStratagem.Add(_listStratagemData[i]);
-            
-            if ((index + 1) == _listStratagemData[i].Stratagem.Count)
-            {
-                Debug.Log($"{_listStratagemData[i].Name} 스트라타잼 성공");
+                _listCheckStratagem.RemoveAt(i);
             }
         }
+    }
+
+    private void CallStratagem()
+    {
     }
     
     public void ResetStratagem()
     {
         _listInputStratagem.Clear();
         _elapsed = 0f;
+        _listCheckStratagem = new(_listStratagemData);
         // UI 로 전달
     }
 
