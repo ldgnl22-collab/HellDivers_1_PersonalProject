@@ -1,18 +1,23 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
+    public static PlayerController Instance { get; private set; }
+    
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
     private WeaponManager _weaponManager;
-
+    
     private int _currentHp;
 
     private void Awake()
     {
         Init();
+        SetSingleton();
     }
     
     private void OnEnable()
@@ -23,7 +28,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        CheckDie();
+        // CheckDie();
         
         if (_playerMovement.IsStratagem) return;
         
@@ -87,5 +92,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         _playerInput = new PlayerInput();
         
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerMovement.Init();
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

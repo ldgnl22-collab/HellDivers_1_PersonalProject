@@ -10,6 +10,10 @@ public class Bullet : MonoBehaviour, IPoolable
     
     private float _spreadAngle;
 
+    private bool _isShootPlayer;
+    public bool IsShootPlayer => _isShootPlayer;
+
+    [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _enemyLayer;
     
     private void OnEnable()
@@ -24,12 +28,23 @@ public class Bullet : MonoBehaviour, IPoolable
         CountLifeTime();
     }
 
+    public void SetIsShootPlayer(bool value)
+    {
+        _isShootPlayer = value;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         IDamageable damageable = other.GetComponent<IDamageable>();
         
-        if (damageable != null)
+        if (damageable != null && _isShootPlayer)
         {
+            Debug.Log($"Enemy 피격");
+            GetDamage(damageable);
+        }
+        else if (damageable != null && !_isShootPlayer)
+        {
+            Debug.Log($"플레이어 피격");
             GetDamage(damageable);
         }
     }
@@ -82,6 +97,7 @@ public class Bullet : MonoBehaviour, IPoolable
 
     public void TakeFromPool()
     {
+        _isShootPlayer = true;
         GunData currentGun = WeaponManager.Instance.CurrentGun;
         
         transform.position = currentGun.Prefab.transform.GetChild(1).position;

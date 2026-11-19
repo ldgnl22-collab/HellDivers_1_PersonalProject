@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 6491549916771573901}
   - component: {fileID: 907371591065371640}
   - component: {fileID: 8805069128108774139}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,9 +206,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8948289581748904626}
+  - component: {fileID: 4087661675638541510}
   - component: {fileID: 169261353916491689}
   - component: {fileID: 8353187846549241259}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,6 +231,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6220782810168622012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4087661675638541510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8215526080474758219}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 1.5, z: 2}
+  m_Center: {x: 0.25, y: 0, z: -1.7}
 --- !u!33 &169261353916491689
 MeshFilter:
   m_ObjectHideFlags: 0

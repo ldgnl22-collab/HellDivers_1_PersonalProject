@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +7,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveInput;
     private Vector2 _mousePosInput;
     
+    private StratagemSystem _stratagemSystem;
+    
     private bool _isStratagem;
     public bool IsStratagem { get{ return _isStratagem; } }
 
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rayDistance = 100f;
     [SerializeField] private LayerMask _groundLayer;
+
+    public event Action<Transform> OnPlayerMove;
     
     private void Update()
     {
@@ -32,21 +37,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isStratagem)
         {
-            Debug.Log("Stratagem");
-            Arrow();
+            // Debug.Log("Stratagem");
+            _stratagemSystem.InputStratagem();
         }
         else
         {
+            if (_stratagemSystem.ListInputStratagem != null)
+            {
+                _stratagemSystem.ResetStratagem();
+            }
+            
             Move();
             MousePosRay();
-        }
-    }
-
-    private void Arrow()
-    {
-        if (_moveInput.x >= 1f || _moveInput.x <= -1f || _moveInput.y >= 1f || _moveInput.y <= -1f)
-        {
-            Debug.Log($"Stratagem : {_moveInput.x}, {_moveInput.y}");
         }
     }
     
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         moveDir.Normalize();
         
         transform.Translate(moveDir * _moveSpeed * Time.deltaTime, Space.World);
+        OnPlayerMove?.Invoke(transform);
     }
 
     public void OnMousePosition(InputAction.CallbackContext context)
@@ -75,5 +78,10 @@ public class PlayerMovement : MonoBehaviour
             
             transform.LookAt(dir);
         }
+    }
+
+    public void Init()
+    {
+        _stratagemSystem = GetComponent<StratagemSystem>();
     }
 }

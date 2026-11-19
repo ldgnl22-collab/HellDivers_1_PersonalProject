@@ -96,7 +96,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""0d4e4d15-94bd-4a10-9ec4-e7d71656a6d3"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -254,9 +254,36 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Arrow"",
+                    ""name"": ""Up"",
                     ""type"": ""Button"",
                     ""id"": ""2138557e-12f8-4eea-84f7-1024ae5761b0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""398d5f7f-e0b4-467a-93c6-cc2d7c23ff8c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7bfddcd-ac7d-4f1c-84be-5fbc4aabce8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a06012c-ba47-4c42-bb94-00cc17ffbea3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -276,59 +303,48 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""29014818-05ee-4afc-97ae-b33ddcb56b24"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Arrow"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""a7096e80-7ca2-4cbf-a3a7-ac7f48068262"",
+                    ""name"": """",
+                    ""id"": ""c14366ce-6173-4986-a844-a0bb0b65dc26"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Up"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""down"",
-                    ""id"": ""2b06d4e9-c008-47f8-b02a-cc90f70129a4"",
+                    ""name"": """",
+                    ""id"": ""3e508c3b-1bf7-477f-9f52-7d04a7948400"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Down"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""c59f8ab4-482f-47be-9e4f-a83cb59290b1"",
+                    ""name"": """",
+                    ""id"": ""28ebeff3-b70b-44ff-b653-6028c46ab42e"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Left"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""953f6b34-cb85-41ca-bb28-55384da481f2"",
+                    ""name"": """",
+                    ""id"": ""1b10006d-779e-4743-87c3-0b03d2999c26"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Arrow"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -345,7 +361,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Stratagem
         m_Stratagem = asset.FindActionMap("Stratagem", throwIfNotFound: true);
         m_Stratagem_Stratagem = m_Stratagem.FindAction("Stratagem", throwIfNotFound: true);
-        m_Stratagem_Arrow = m_Stratagem.FindAction("Arrow", throwIfNotFound: true);
+        m_Stratagem_Up = m_Stratagem.FindAction("Up", throwIfNotFound: true);
+        m_Stratagem_Down = m_Stratagem.FindAction("Down", throwIfNotFound: true);
+        m_Stratagem_Left = m_Stratagem.FindAction("Left", throwIfNotFound: true);
+        m_Stratagem_Right = m_Stratagem.FindAction("Right", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -568,7 +587,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Stratagem;
     private List<IStratagemActions> m_StratagemActionsCallbackInterfaces = new List<IStratagemActions>();
     private readonly InputAction m_Stratagem_Stratagem;
-    private readonly InputAction m_Stratagem_Arrow;
+    private readonly InputAction m_Stratagem_Up;
+    private readonly InputAction m_Stratagem_Down;
+    private readonly InputAction m_Stratagem_Left;
+    private readonly InputAction m_Stratagem_Right;
     /// <summary>
     /// Provides access to input actions defined in input action map "Stratagem".
     /// </summary>
@@ -585,9 +607,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Stratagem => m_Wrapper.m_Stratagem_Stratagem;
         /// <summary>
-        /// Provides access to the underlying input action "Stratagem/Arrow".
+        /// Provides access to the underlying input action "Stratagem/Up".
         /// </summary>
-        public InputAction @Arrow => m_Wrapper.m_Stratagem_Arrow;
+        public InputAction @Up => m_Wrapper.m_Stratagem_Up;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Down".
+        /// </summary>
+        public InputAction @Down => m_Wrapper.m_Stratagem_Down;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Left".
+        /// </summary>
+        public InputAction @Left => m_Wrapper.m_Stratagem_Left;
+        /// <summary>
+        /// Provides access to the underlying input action "Stratagem/Right".
+        /// </summary>
+        public InputAction @Right => m_Wrapper.m_Stratagem_Right;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -617,9 +651,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Stratagem.started += instance.OnStratagem;
             @Stratagem.performed += instance.OnStratagem;
             @Stratagem.canceled += instance.OnStratagem;
-            @Arrow.started += instance.OnArrow;
-            @Arrow.performed += instance.OnArrow;
-            @Arrow.canceled += instance.OnArrow;
+            @Up.started += instance.OnUp;
+            @Up.performed += instance.OnUp;
+            @Up.canceled += instance.OnUp;
+            @Down.started += instance.OnDown;
+            @Down.performed += instance.OnDown;
+            @Down.canceled += instance.OnDown;
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
         }
 
         /// <summary>
@@ -634,9 +677,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Stratagem.started -= instance.OnStratagem;
             @Stratagem.performed -= instance.OnStratagem;
             @Stratagem.canceled -= instance.OnStratagem;
-            @Arrow.started -= instance.OnArrow;
-            @Arrow.performed -= instance.OnArrow;
-            @Arrow.canceled -= instance.OnArrow;
+            @Up.started -= instance.OnUp;
+            @Up.performed -= instance.OnUp;
+            @Up.canceled -= instance.OnUp;
+            @Down.started -= instance.OnDown;
+            @Down.performed -= instance.OnDown;
+            @Down.canceled -= instance.OnDown;
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
         }
 
         /// <summary>
@@ -728,11 +780,32 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnStratagem(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Arrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Up" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnArrow(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Down" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRight(InputAction.CallbackContext context);
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
@@ -22,7 +23,7 @@ public class PoolManager : MonoBehaviour
     {
         BulletPool = new ObjectPool<Bullet>(_bulletPrefab, 100, transform);
         ShortEnemy = new ObjectPool<ShortRangeEnemy>(_shortEnemyPrefab, 50, transform);
-        LongEnemy = new ObjectPool<LongRangeEnemy>(_longEnemyPrefab, 50, transform);
+        LongEnemy = new ObjectPool<LongRangeEnemy>(_longEnemyPrefab,  50, transform);
     }
     
     private void SetSingleton()
