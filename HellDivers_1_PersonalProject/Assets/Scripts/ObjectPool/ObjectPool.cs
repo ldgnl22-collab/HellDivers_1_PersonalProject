@@ -32,6 +32,8 @@ public class ObjectPool<T> where T : MonoBehaviour, IPoolable
             T obj = _pool.Dequeue();
             obj.gameObject.SetActive(true);
             
+            obj.TakeFromPool();
+            
             return obj;
         }
 

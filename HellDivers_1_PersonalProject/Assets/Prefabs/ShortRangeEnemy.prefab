@@ -51,7 +51,7 @@ MonoBehaviour:
   _stat: {fileID: 11400000, guid: 471c9d91a6062bb43b8c0a6a336be84f, type: 2}
   _currentHp: 0
   _spawnPos: {x: 0, y: 0, z: 0}
-  _target: {fileID: 8878421137493903239, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+  _target: {fileID: 0}
 --- !u!136 &5268578075551471013
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &8630403763229553685
 GameObject:

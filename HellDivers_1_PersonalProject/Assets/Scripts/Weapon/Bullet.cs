@@ -18,8 +18,11 @@ public class Bullet : MonoBehaviour, IPoolable
     
     private void OnEnable()
     {
-        WeaponManager.Instance.OnSpeedChange += SetSpeed;
-        WeaponManager.Instance.OnDamageChange += SetDamage;
+        if (WeaponManager.Instance != null)
+        {
+            WeaponManager.Instance.OnSpeedChange += SetSpeed;
+            WeaponManager.Instance.OnDamageChange += SetDamage;
+        }
     }
     
     private void Update()
@@ -95,13 +98,17 @@ public class Bullet : MonoBehaviour, IPoolable
         return randomAngle;
     }
 
-    public void TakeFromPool()
+    public void TakeFromPoolPlayer()
     {
         _isShootPlayer = true;
         GunData currentGun = WeaponManager.Instance.CurrentGun;
         
         transform.position = currentGun.Prefab.transform.GetChild(1).position;
         transform.rotation = SetSpreadAngle(currentGun);
+    }
+
+    public void TakeFromPool()
+    {
     }
 
     public void ReturnToPool()

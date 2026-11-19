@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
-    private WeaponManager _weaponManager;
     
     private int _currentHp;
 
@@ -32,9 +31,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         if (_playerMovement.IsStratagem) return;
         
-        WeaponManager.Instance.Reload();
-        WeaponManager.Instance.OnShoot(transform);
-        WeaponManager.Instance.OnChangeGun();
+        WeaponManager.Instance.OnWeapon();
     }
 
     private void OnDisable()
@@ -104,6 +101,5 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 }

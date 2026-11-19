@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StratagemData
   _name: Supply
   _stratagem: 00000000000000000000000001000000
+  _beaconPrefab: {fileID: 1279851336659812794, guid: 0eb5942bbfc95a64ba19492995db5047, type: 3}
+  _beaconType: 0
+  _useType: 1
   _useCount: 0
-  _coolTime: 0
+  _coolTime: 10
