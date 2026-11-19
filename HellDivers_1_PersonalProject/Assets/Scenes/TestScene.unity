@@ -895,7 +895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: _listStratagemData.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: '_listStratagemData.Array.data[0]'
@@ -909,6 +909,10 @@ PrefabInstance:
       propertyPath: '_listStratagemData.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: ddab14c3ba9b90a41a73e0936da0a04b, type: 2}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b02a7531befa224e956c7156bd4ff17, type: 2}
     - target: {fileID: 4513388946192981842, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

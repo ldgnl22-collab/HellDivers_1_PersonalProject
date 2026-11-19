@@ -17,6 +17,7 @@ public class StratagemSystem : MonoBehaviour
     [SerializeField] private List<StratagemData> _listStratagemData = new();
 
     [SerializeField] private List<StratagemData> _listCheckStratagem;
+    public List<StratagemData> ListCheckStratagem => _listCheckStratagem;
 
     private void Start()
     {
@@ -66,38 +67,39 @@ public class StratagemSystem : MonoBehaviour
 
     private void CheckStratagem(int index)
     {
+        List<StratagemData> tempList = new();
         for (int i = 0; i < _listCheckStratagem.Count; i++)
         {
-            if (_listCheckStratagem[i].Stratagem[index] != _listInputStratagem[i])
+            if (_listCheckStratagem[i].Stratagem.Count <= index)
             {
-                if (_listCheckStratagem.Count <= 0)
-                {
-                    Debug.Log($"스트라타잼 실패");
-                    return;
-                }
-                _listCheckStratagem.RemoveAt(i);
+                continue;
             }
-            else
+            if (_listCheckStratagem[i].Stratagem[index] == _listInputStratagem[index])
             {
-                StratagemData data = _listCheckStratagem[0];
-                if (_listCheckStratagem.Count <= 0)
-                {
-                    Debug.Log($"{data} 스트라타잼 성공");
-                    // CallStratagem();
-                }
+                tempList.Add(_listCheckStratagem[i]);
             }
         }
+        _listCheckStratagem.Clear();
+        _listCheckStratagem = new(tempList);
     }
 
-    private void CallStratagem()
+    public void CallStratagem()
     {
-        Debug.Log($"스트라타잼 성공");
+        if (ListCheckStratagem.Count == 1
+            && (ListCheckStratagem[0].Stratagem.Count
+                == ListInputStratagem.Count))
+        {
+            Debug.Log($"스트라타잼 성공");
+        }
     }
     
     public void ResetStratagem()
     {
+        CallStratagem();
+        
         _listInputStratagem.Clear();
         _elapsed = 0f;
+        // 데이터 리스트 -> 체크용 리스트에 복사
         _listCheckStratagem = new(_listStratagemData);
         // UI 로 전달
     }

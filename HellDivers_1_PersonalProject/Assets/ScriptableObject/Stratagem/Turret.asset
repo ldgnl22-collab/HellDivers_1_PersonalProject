@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Turret
   m_EditorClassIdentifier: Assembly-CSharp::StratagemData
   _name: Turret
-  _stratagem: 00000000010000000200000003000000
+  _stratagem: 0000000001000000020000000300000000000000
   _useCount: 5
   _coolTime: 10
