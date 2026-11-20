@@ -11,8 +11,9 @@ public class BeaconSystem : MonoBehaviour
     private BeaconType _beaconType;
     private BeaconUseType _beaconUseType;
 
+    private bool _isOverCount;
+    
     private bool _isCoolTime;
-
     private float _elapsedTime;
     
     public static BeaconSystem Instance { get; private set; }
@@ -25,18 +26,20 @@ public class BeaconSystem : MonoBehaviour
     private void Update()
     {
         HoldPosition();
-        UseBeacon();
+        // UseBeacon();
         Timer();
     }
 
-    private void UseBeacon()
+    public void UseBeacon()
     {
         switch (_beaconUseType)
         {
             case BeaconUseType.UseCount:
+                CallBeacon();
                 SetUseCount();
                 break;
             case BeaconUseType.CoolTime:
+                CallBeacon();
                 SetCoolTime();
                 break;
             default:
@@ -46,10 +49,31 @@ public class BeaconSystem : MonoBehaviour
 
     private void SetUseCount()
     {
+        if (_stratagemData == null || _beaconUseType != BeaconUseType.UseCount)
+        {
+            return;
+        }
+
+        if (_stratagemData.UseCount >= _stratagemData.UseMaxCount)
+        {
+            _isOverCount = true;
+        }
     }
 
     private void SetCoolTime()
     {
+    }
+
+    private void Timer()
+    {
+        if (_stratagemData == null || _beaconUseType != BeaconUseType.CoolTime)
+        {
+            return;
+        }
+        if (_isCoolTime)
+        {
+            _stratagemData.ElapsedTime += Time.deltaTime;
+        }
         if (_stratagemData.ElapsedTime >= _stratagemData.CoolTime)
         {
             _isCoolTime = false;
@@ -58,14 +82,6 @@ public class BeaconSystem : MonoBehaviour
         {
             Debug.Log($"{_stratagemData.Name} 쿨타임..");
             _isCoolTime = true;
-        }
-    }
-
-    private void Timer()
-    {
-        if (_stratagemData != null && _isCoolTime)
-        {
-            _stratagemData.ElapsedTime += Time.deltaTime;
         }
     }
 
@@ -78,19 +94,20 @@ public class BeaconSystem : MonoBehaviour
         Debug.Log($"{_stratagemData.Name} 호출");
     }
     
-    public void CallBeacon()
+    private void CallBeacon()
     {
-        if (_isCoolTime)
+        if (_isCoolTime || _isOverCount)
         {
             return;
         }
-        
-        _stratagemData.ElapsedTime = 0f;
         
         if (_isBeaconActive)
         {
             return;
         }
+        
+        _stratagemData.ElapsedTime = 0f;
+        _stratagemData.UseCount++;
 
         _isBeaconActive = true;
         _beacon = PoolManager.Instance.BeaconPool.TakePool();

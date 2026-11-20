@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Turret
   m_EditorClassIdentifier: Assembly-CSharp::StratagemData
   _name: Turret
-  _stratagem: 0000000001000000020000000300000000000000
+  _stratagem: 0000000000000000010000000100000001000000
   _beaconPrefab: {fileID: 1276588023697653353, guid: 0b6994bcc9f023249b622c8113adafd8, type: 3}
   _beaconType: 3
   _useType: 0
-  _useCount: 5
+  _useMaxCount: 5
+  _useCount: 0
   _coolTime: 0
+  _elapsedTime: 0

@@ -93,7 +93,8 @@ public class StratagemSystem : MonoBehaviour
         {
             _beaconSystem.SetBeaconData(ListCheckStratagem[0]);
             Debug.Log($"스트라타잼 성공");
-            _beaconSystem.CallBeacon();
+            _beaconSystem.UseBeacon();
+            _listInputStratagem.Clear();
         }
     }
     

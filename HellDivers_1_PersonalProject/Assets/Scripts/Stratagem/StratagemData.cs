@@ -12,6 +12,7 @@ public class StratagemData : ScriptableObject
     [SerializeField] private BeaconType _beaconType;
     [SerializeField] private BeaconUseType _useType;
     
+    [SerializeField] private int _useMaxCount;
     [SerializeField] private int _useCount;
     [SerializeField] private float _coolTime;
     [SerializeField] private float _elapsedTime;
@@ -24,7 +25,8 @@ public class StratagemData : ScriptableObject
     public BeaconType BeaconType => _beaconType;
     public BeaconUseType UseType => _useType;
     
-    public int UseCount => _useCount;
+    public int UseMaxCount => _useMaxCount;
+    public int UseCount { get => _useCount; set => _useCount = value; }
     public float CoolTime => _coolTime;
     public float ElapsedTime { get => _elapsedTime; set => _elapsedTime = value; }
 }
