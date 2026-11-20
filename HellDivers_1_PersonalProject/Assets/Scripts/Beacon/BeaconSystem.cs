@@ -11,6 +11,8 @@ public class BeaconSystem : MonoBehaviour
     private BeaconType _beaconType;
     private BeaconUseType _beaconUseType;
 
+    private bool _isCoolTime;
+
     private float _elapsedTime;
     
     public static BeaconSystem Instance { get; private set; }
@@ -23,6 +25,7 @@ public class BeaconSystem : MonoBehaviour
     private void Update()
     {
         HoldPosition();
+        UseBeacon();
         Timer();
     }
 
@@ -47,16 +50,23 @@ public class BeaconSystem : MonoBehaviour
 
     private void SetCoolTime()
     {
-        if (_elapsedTime >= _stratagemData.CoolTime)
+        if (_stratagemData.ElapsedTime >= _stratagemData.CoolTime)
         {
-            Debug.Log($"{_stratagemData.Name} 쿨타임");
-            _elapsedTime = 0;
+            _isCoolTime = false;
+        }
+        else
+        {
+            Debug.Log($"{_stratagemData.Name} 쿨타임..");
+            _isCoolTime = true;
         }
     }
 
     private void Timer()
     {
-        _elapsedTime += Time.deltaTime;
+        if (_stratagemData != null && _isCoolTime)
+        {
+            _stratagemData.ElapsedTime += Time.deltaTime;
+        }
     }
 
     public void SetBeaconData(StratagemData stratagemData)
@@ -66,18 +76,24 @@ public class BeaconSystem : MonoBehaviour
         _beaconUseType = stratagemData.UseType;
         
         Debug.Log($"{_stratagemData.Name} 호출");
-        UseBeacon();
     }
     
     public void CallBeacon()
     {
+        if (_isCoolTime)
+        {
+            return;
+        }
+        
+        _stratagemData.ElapsedTime = 0f;
+        
         if (_isBeaconActive)
         {
             return;
         }
 
-        _beacon = PoolManager.Instance.BeaconPool.TakePool();
         _isBeaconActive = true;
+        _beacon = PoolManager.Instance.BeaconPool.TakePool();
     }
     
     private void HoldPosition()

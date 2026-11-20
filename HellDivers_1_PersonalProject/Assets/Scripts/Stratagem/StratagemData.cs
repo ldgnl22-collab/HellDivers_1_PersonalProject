@@ -14,6 +14,7 @@ public class StratagemData : ScriptableObject
     
     [SerializeField] private int _useCount;
     [SerializeField] private float _coolTime;
+    [SerializeField] private float _elapsedTime;
     
     public string Name => _name;
     public List<ArrowType> Stratagem => _stratagem;
@@ -25,4 +26,5 @@ public class StratagemData : ScriptableObject
     
     public int UseCount => _useCount;
     public float CoolTime => _coolTime;
+    public float ElapsedTime { get => _elapsedTime; set => _elapsedTime = value; }
 }

@@ -206,6 +206,7 @@ public class WeaponManager : MonoBehaviour
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
         
+        _lastFireTime = Time.time;
         SetGunReady();
     }
 

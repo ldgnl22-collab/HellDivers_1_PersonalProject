@@ -6,8 +6,6 @@ public class Beacon : MonoBehaviour, IPoolable
     private bool _isHoldPos;
     
     [SerializeField] private LayerMask _groundLayer;
-    
-    private Vector3 _beaconPoint;
 
     private float _activeTime = 2f;
     private float _elapsedTime = 0f;
@@ -46,7 +44,6 @@ public class Beacon : MonoBehaviour, IPoolable
         
             if (_elapsedTime >= _activeTime)
             {
-                _beaconPoint = transform.position;
                 PoolManager.Instance.BeaconPool.ReturnPool(this);
                 _elapsedTime = 0f;
                 _isGround = false;
