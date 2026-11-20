@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BeaconSystem : MonoBehaviour
@@ -15,6 +18,11 @@ public class BeaconSystem : MonoBehaviour
     
     private bool _isCoolTime;
     private float _elapsedTime;
+
+    private List<StratagemData> _listUsedCount = new();
+    private List<StratagemData> _listCoolTime = new();
+    
+    private Dictionary<BeaconType, StratagemData> _dictBeacon = new();
     
     public static BeaconSystem Instance { get; private set; }
 
@@ -40,7 +48,7 @@ public class BeaconSystem : MonoBehaviour
                 break;
             case BeaconUseType.CoolTime:
                 CallBeacon();
-                SetCoolTime();
+                // SetCoolTime();
                 break;
             default:
                 return;
@@ -49,14 +57,12 @@ public class BeaconSystem : MonoBehaviour
 
     private void SetUseCount()
     {
-        if (_stratagemData == null || _beaconUseType != BeaconUseType.UseCount)
+        foreach (BeaconType key in _dictBeacon.Keys)
         {
-            return;
-        }
-
-        if (_stratagemData.UseCount >= _stratagemData.UseMaxCount)
-        {
-            _isOverCount = true;
+            if (_dictBeacon[key].UseCount >= _dictBeacon[key].UseMaxCount)
+            {
+                _dictBeacon[key].IsUseCount = true;
+            }
         }
     }
 
@@ -66,22 +72,28 @@ public class BeaconSystem : MonoBehaviour
 
     private void Timer()
     {
-        if (_stratagemData == null || _beaconUseType != BeaconUseType.CoolTime)
+        if (_dictBeacon == null)
         {
             return;
         }
-        if (_isCoolTime)
+        foreach (BeaconType key in _dictBeacon.Keys)
         {
-            _stratagemData.ElapsedTime += Time.deltaTime;
-        }
-        if (_stratagemData.ElapsedTime >= _stratagemData.CoolTime)
-        {
-            _isCoolTime = false;
-        }
-        else
-        {
-            Debug.Log($"{_stratagemData.Name} 쿨타임..");
-            _isCoolTime = true;
+            if (_dictBeacon[key].IsCoolTime)
+            {
+                // _dictBeacon[key].ElapsedTime += Time.deltaTime;
+            }
+            
+            if (_dictBeacon[key].ElapsedTime >= _dictBeacon[key].CoolTime)
+            {
+                _dictBeacon[key].IsCoolTime = false;
+                _dictBeacon[key].ElapsedTime = 0f;
+            }
+            else
+            {
+                Debug.Log($"{_dictBeacon[key].Name} 쿨타임..");
+                _dictBeacon[key].ElapsedTime += Time.deltaTime;
+                _dictBeacon[key].IsCoolTime = true;
+            }
         }
     }
 
@@ -93,10 +105,15 @@ public class BeaconSystem : MonoBehaviour
         
         Debug.Log($"{_stratagemData.Name} 호출");
     }
-    
+
     private void CallBeacon()
     {
-        if (_isCoolTime || _isOverCount)
+        if (_stratagemData == null)
+        {
+            return;
+        }
+
+        if (_dictBeacon.ContainsKey(_beaconType))
         {
             return;
         }
@@ -106,13 +123,40 @@ public class BeaconSystem : MonoBehaviour
             return;
         }
         
-        _stratagemData.ElapsedTime = 0f;
-        _stratagemData.UseCount++;
+        _dictBeacon.Add(_beaconType, _stratagemData);
+
+        foreach (BeaconType key in _dictBeacon.Keys)
+        {
+            if (_dictBeacon[key].IsCoolTime || _dictBeacon[key].IsUseCount)
+            {
+                continue;
+            }
+
+            if (!_dictBeacon[key].IsCoolTime
+                && _dictBeacon[key].UseType == BeaconUseType.CoolTime)
+            {
+                _dictBeacon[key].IsCoolTime = true;
+                _dictBeacon[key].ElapsedTime = 0f;
+                
+                // _isBeaconActive = true;
+                // _beacon = PoolManager.Instance.BeaconPool.TakePool();
+                // return;
+            }
+            else if (_dictBeacon[key].IsUseCount
+                     && _dictBeacon[key].UseType == BeaconUseType.UseCount)
+            {
+                _dictBeacon[key].UseCount++;
+                
+                // _isBeaconActive = true;
+                // _beacon = PoolManager.Instance.BeaconPool.TakePool();
+                // return;
+            }
+        }
 
         _isBeaconActive = true;
         _beacon = PoolManager.Instance.BeaconPool.TakePool();
     }
-    
+
     private void HoldPosition()
     {
         if (_beacon == null || !_beacon.IsHoldPos)

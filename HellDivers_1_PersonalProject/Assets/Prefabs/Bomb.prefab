@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1173579661639229514}
-  - component: {fileID: 9123689264843160172}
+  - component: {fileID: 5204306654929419307}
   - component: {fileID: 4144465212075341922}
   - component: {fileID: 3929165357689009913}
   - component: {fileID: -3356052421949116618}
@@ -36,7 +36,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9123689264843160172
+--- !u!114 &5204306654929419307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,12 +45,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3102326884535480548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6873450ffc652f4daa323fc6f53864f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c3f96d83a566c543900247908f6938c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeaconLanding
+  m_EditorClassIdentifier: Assembly-CSharp::Bomb
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!33 &4144465212075341922
 MeshFilter:
   m_ObjectHideFlags: 0

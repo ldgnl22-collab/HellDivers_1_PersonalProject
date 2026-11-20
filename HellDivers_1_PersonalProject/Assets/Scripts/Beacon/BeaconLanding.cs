@@ -1,15 +1,21 @@
+using System;
 using UnityEngine;
 
 public class BeaconLanding : MonoBehaviour
 {
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] protected LayerMask _groundLayer;
+    [SerializeField] protected LayerMask _playerLayer;
 
-    private bool _isInstall;
+    protected bool IsInstall;
+    protected bool IsPlayerEnter;
+    
+    public event Action OnUsingBeacon;
     
     private void Update()
     {
-        if (_isInstall)
+        if (IsInstall)
         {
+            // OnUsingBeacon?.Invoke();
             return;
         }
         transform.position += new Vector3(0,-5f * Time.deltaTime,0);
@@ -19,7 +25,12 @@ public class BeaconLanding : MonoBehaviour
     {
         if ((1 << collision.gameObject.layer) == _groundLayer.value)
         {
-            _isInstall = true;
+            IsInstall = true;
+        }
+
+        if ((1 << collision.gameObject.layer) == _playerLayer.value)
+        {
+            IsPlayerEnter = true;
         }
     }
 }

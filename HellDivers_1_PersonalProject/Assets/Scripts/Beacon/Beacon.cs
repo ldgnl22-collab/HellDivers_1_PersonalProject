@@ -8,14 +8,11 @@ public class Beacon : MonoBehaviour, IPoolable
     [SerializeField] private LayerMask _groundLayer;
 
     private float _activeTime = 2f;
-    private float _elapsedTime = 0f;
+    private float _elapsedTime;
     
     public bool IsHoldPos => _isHoldPos;
 
     private bool _isGround;
-
-    private bool _isLandingMode;
-    private GameObject _beaconMode;
     
     private void Awake()
     {

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 642407829481525180}
-  - component: {fileID: 7780446617050962221}
+  - component: {fileID: 5591054488919498735}
   - component: {fileID: 1860714134585686476}
   - component: {fileID: 4237674905287649178}
   - component: {fileID: 5058453783862785209}
@@ -37,7 +37,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7780446617050962221
+--- !u!114 &5591054488919498735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,12 +46,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279851336659812794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6873450ffc652f4daa323fc6f53864f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1083319fcd2d7194a9f0f082cc7835cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeaconLanding
+  m_EditorClassIdentifier: Assembly-CSharp::Supply
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!33 &1860714134585686476
 MeshFilter:
   m_ObjectHideFlags: 0
