@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, IPoolable
@@ -19,6 +20,8 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     public ReturnState ReturnState { get; private set; }
     public DeadState DeadState { get; private set; }
     
+    protected bool _isDead = false;
+    
     private void Awake()
     {
         CreateState();
@@ -27,8 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     
     private void Start()
     {
-        ResetHp();
-        // ResetSpawnPosition(transform.position);
+        ResetStat();
         StateMachine.Initialize(IdleState);
     }
 
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
 
     public void ReturnToPool()
     {
+        ResetStat();
     }
 
     public void TakeDamage(int damage)
@@ -75,6 +78,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
         }
         
         StateMachine.ChangeState(DeadState);
+        _isDead = true;
     }
 
     private void CreateState()
@@ -87,9 +91,10 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
         DeadState = new DeadState(this);
     }
     
-    private void ResetHp()
+    private void ResetStat()
     {
         _currentHp = _stat.MaxHp;
+        _isDead = false;
     }
 
     private void SetPlayerPos()

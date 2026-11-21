@@ -17,7 +17,10 @@ public class StratagemSystem : MonoBehaviour
     [SerializeField] private List<StratagemData> _listStratagemData = new();
 
     [SerializeField] private List<StratagemData> _listCheckStratagem;
+    public List<StratagemData> ListStratagemData => _listStratagemData;
     public List<StratagemData> ListCheckStratagem => _listCheckStratagem;
+    
+    private BeaconSystem _beaconSystem;
 
     private void Start()
     {
@@ -83,13 +86,16 @@ public class StratagemSystem : MonoBehaviour
         _listCheckStratagem = new(tempList);
     }
 
-    public void CallStratagem()
+    private void CallStratagem()
     {
         if (ListCheckStratagem.Count == 1
             && (ListCheckStratagem[0].Stratagem.Count
                 == ListInputStratagem.Count))
         {
+            _beaconSystem.SetBeaconData(ListCheckStratagem[0]);
             Debug.Log($"스트라타잼 성공");
+            _beaconSystem.UseBeacon();
+            _listInputStratagem.Clear();
         }
     }
     
@@ -124,5 +130,6 @@ public class StratagemSystem : MonoBehaviour
     private void Init()
     {
         ResetStratagem();
+        _beaconSystem = GetComponent<BeaconSystem>();
     }
 }

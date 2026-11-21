@@ -10,9 +10,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     
     private PlayerInput _playerInput;
     private PlayerMovement _playerMovement;
-    private WeaponManager _weaponManager;
     
-    private int _currentHp;
+    [SerializeField] private int _currentHp;
 
     private void Awake()
     {
@@ -28,13 +27,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        // CheckDie();
+        CheckDie();
         
         if (_playerMovement.IsStratagem) return;
         
-        WeaponManager.Instance.Reload();
-        WeaponManager.Instance.OnShoot(transform);
-        WeaponManager.Instance.OnChangeGun();
+        WeaponManager.Instance.OnWeapon();
     }
 
     private void OnDisable()
@@ -76,6 +73,23 @@ public class PlayerController : MonoBehaviour, IDamageable
         UnbindInputEvents();
     }
 
+    public void TakeHeal(int damage)
+    {
+        if (_currentHp <= 0)
+        {
+            _currentHp = 0;
+            return;
+        }
+        
+        if (_currentHp > 100)
+        {
+            _currentHp = 100;
+        }
+        
+        Debug.Log($"플레이어 체력 : {_currentHp}");
+        _currentHp += damage;
+    }
+
     public void TakeDamage(int damage)
     {
         if (_currentHp <= 0)
@@ -93,6 +107,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         _playerMovement = GetComponent<PlayerMovement>();
         _playerMovement.Init();
+
+        _currentHp = 100;
     }
 
     private void SetSingleton()
@@ -104,6 +120,5 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 }

@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: Bomb
   m_EditorClassIdentifier: Assembly-CSharp::StratagemData
   _name: Bomb
-  _stratagem: 00000000000000000100000000000000
-  _useCount: 0
-  _coolTime: 0
+  _stratagem: 01000000010000000100000001000000
+  _beaconPrefab: {fileID: 3102326884535480548, guid: d7302150769be3b4ebb6a08e4c907429, type: 3}
+  _beaconType: 1
+  _useType: 1
+  _useMaxCount: 0
+  _isUseCount: 0
+  _useCount: 1
+  _coolTime: 20
+  _isCoolTime: 1
+  _elapsedTime: 3.617341

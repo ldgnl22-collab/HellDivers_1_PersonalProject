@@ -18,11 +18,7 @@ public class WeaponManager : MonoBehaviour
     private int _gunIndex;
 
     private GunData _currentGun;
-
-    public GunData CurrentGun
-    {
-        get { return _currentGun; }
-    }
+    public GunData CurrentGun => _currentGun;
 
     private GunData _pistolData;
     private GunData _rifleData;
@@ -40,6 +36,8 @@ public class WeaponManager : MonoBehaviour
     public event Action<float> OnSpeedChange;
     
     private Coroutine _reloadRoutine;
+    
+    private BeaconSystem _beaconSystem;
 
     private void Awake()
     {
@@ -61,7 +59,24 @@ public class WeaponManager : MonoBehaviour
         _reloadInput.action.Disable();
     }
 
-    public void OnChangeGun()
+    public void OnWeapon()
+    {
+        if (_beaconSystem.IsBeaconActive
+            && _fireInput.action.WasPressedThisFrame())
+        {
+            _beaconSystem.ThrowBeacon();
+            _lastFireTime = Time.time;
+        }
+        
+        if (!_beaconSystem.IsBeaconActive)
+        {
+            Reload();
+            OnShoot();
+            OnChangeGun();
+        }
+    }
+
+    private void OnChangeGun()
     {
         if (_changeInput.action.WasPressedThisFrame())
         {
@@ -105,7 +120,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void OnShoot(Transform startPos)
+    private void OnShoot()
     {
         if (_reloadRoutine != null)
         {
@@ -126,16 +141,16 @@ public class WeaponManager : MonoBehaviour
                 {
                     for (int i = 0; i < 4; i++)
                     {
-                        IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
-                        poolable.TakeFromPool();
+                        Bullet poolable = PoolManager.Instance.BulletPool.TakePool();
+                        poolable.TakeFromPoolPlayer();
                         OnSpeedChange.Invoke(_currentGun.BulletSpeed);
                         OnDamageChange.Invoke(_currentGun.Damage);
                     }
                 }
                 else
                 {
-                    IPoolable poolable = PoolManager.Instance.BulletPool.TakePool();
-                    poolable.TakeFromPool();
+                    Bullet poolable = PoolManager.Instance.BulletPool.TakePool();
+                    poolable.TakeFromPoolPlayer();
                     OnSpeedChange.Invoke(_currentGun.BulletSpeed);
                     OnDamageChange.Invoke(_currentGun.Damage);
                 }
@@ -148,7 +163,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
     
-    public void Reload()
+    private void Reload()
     {
         if (_currentGun.RemainingBullets >= _currentGun.MaxMagazineSize)
         {
@@ -174,6 +189,8 @@ public class WeaponManager : MonoBehaviour
 
     private void Init()
     {
+        _beaconSystem = GetComponent<BeaconSystem>();
+        
         GameObject pistol = Instantiate(_pistolPrefab);
         GameObject rifle = Instantiate(_riflePrefab);
         GameObject shotgun = Instantiate(_shotgunPrefab);
@@ -189,6 +206,7 @@ public class WeaponManager : MonoBehaviour
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
         
+        _lastFireTime = Time.time;
         SetGunReady();
     }
 
@@ -227,6 +245,5 @@ public class WeaponManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 }
