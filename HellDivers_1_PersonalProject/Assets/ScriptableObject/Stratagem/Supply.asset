@@ -21,5 +21,5 @@ MonoBehaviour:
   _isUseCount: 0
   _useCount: 3
   _coolTime: 10
-  _isCoolTime: 1
-  _elapsedTime: 3.617341
+  _isCoolTime: 0
+  _elapsedTime: 0

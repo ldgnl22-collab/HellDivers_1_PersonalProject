@@ -844,8 +844,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: _listStratagemData.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a55d259590fcca44a86dfe2fbaa48a5, type: 2}
     - target: {fileID: 3895526555273119011, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: _beaconModePrefab
       value: 

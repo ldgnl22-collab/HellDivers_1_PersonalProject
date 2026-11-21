@@ -17,6 +17,7 @@ public class StratagemSystem : MonoBehaviour
     [SerializeField] private List<StratagemData> _listStratagemData = new();
 
     [SerializeField] private List<StratagemData> _listCheckStratagem;
+    public List<StratagemData> ListStratagemData => _listStratagemData;
     public List<StratagemData> ListCheckStratagem => _listCheckStratagem;
     
     private BeaconSystem _beaconSystem;
