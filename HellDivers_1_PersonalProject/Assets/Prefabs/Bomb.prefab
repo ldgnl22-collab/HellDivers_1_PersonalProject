@@ -54,9 +54,9 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  _enemyLayer:
+  _targetDamageLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1536
 --- !u!33 &4144465212075341922
 MeshFilter:
   m_ObjectHideFlags: 0

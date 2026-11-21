@@ -17,6 +17,7 @@ public class Supply : BeaconLanding, IBeacon
         if (IsPlayerEnter)
         {
             Debug.Log("지원품 획득");
+            PlayerController.Instance.TakeHeal(50);
             Destroy(gameObject);
         }
     }

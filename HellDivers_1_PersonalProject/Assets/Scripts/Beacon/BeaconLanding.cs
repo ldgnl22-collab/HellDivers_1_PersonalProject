@@ -5,6 +5,7 @@ public class BeaconLanding : MonoBehaviour
 {
     [SerializeField] protected LayerMask _groundLayer;
     [SerializeField] protected LayerMask _playerLayer;
+    [SerializeField] protected LayerMask _targetDamageLayer;
 
     protected bool IsInstall;
     protected bool IsPlayerEnter;
@@ -15,7 +16,7 @@ public class BeaconLanding : MonoBehaviour
     {
         if (IsInstall)
         {
-            // OnUsingBeacon?.Invoke();
+            OnUsingBeacon?.Invoke();
             return;
         }
         transform.position += new Vector3(0,-5f * Time.deltaTime,0);

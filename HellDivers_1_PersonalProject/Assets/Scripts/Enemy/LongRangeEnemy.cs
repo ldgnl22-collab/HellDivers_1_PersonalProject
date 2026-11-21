@@ -10,8 +10,25 @@ public class LongRangeEnemy : Enemy
     
     private void LateUpdate()
     {
+        OnDead();
         Fire();
         KeepFireDistance();
+    }
+    
+    private void OnDead()
+    {
+        if (_isDead)
+        {
+            PoolManager.Instance.LongEnemy.ReturnPool(this);
+            ResetStat();
+        }
+    }
+
+    private void ResetStat()
+    {
+        _maxMagazineSize = 25;
+        _remainingBullets = 0;
+        _lastFireTime = 0f;
     }
 
     private void Fire()
