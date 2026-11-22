@@ -43,6 +43,8 @@ public class AttackState : IState
             _elapsed = 0f;
         }
         Vector3 targetDir = (_enemy.Target.position - _enemy.transform.position).normalized;
+        
+        _enemy.SetAnim(targetDir);
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDir);
         _enemy.transform.rotation = Quaternion.Slerp(_enemy.transform.rotation, targetRotation, 0.3f);

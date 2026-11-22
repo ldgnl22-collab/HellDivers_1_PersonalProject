@@ -31,6 +31,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
+    
+    [SerializeField] private Animator _animator;
 
     public event Action<int> OnDamageChange;
     public event Action<float> OnSpeedChange;
@@ -88,7 +90,7 @@ public class WeaponManager : MonoBehaviour
             }
             
             float inputScroll = _changeInput.action.ReadValue<float>();
-
+            
             if (inputScroll > 0 && _gunIndex >= 0)
             {
                 if (_gunIndex == 0)
@@ -202,6 +204,8 @@ public class WeaponManager : MonoBehaviour
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
         _guns.Add(_shotgunData);
+        
+        _animator = GetComponent<Animator>();
 
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
@@ -233,6 +237,15 @@ public class WeaponManager : MonoBehaviour
             {
                 _guns[i].Prefab.SetActive(false);
             }
+        }
+        
+        if (_currentGun.Name == "Pistol")
+        {
+            _animator.SetBool("IsPistol", true);
+        }
+        else
+        {
+            _animator.SetBool("IsPistol", false);
         }
     }
 

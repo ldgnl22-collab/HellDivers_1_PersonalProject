@@ -10,6 +10,9 @@ public class Turret : BeaconLanding, IBeacon
     [SerializeField] private float _fireRate = 0.4f;
     [SerializeField] private float _lastFireTime;
     [SerializeField] private float _reloadRate = 3f;
+
+    [SerializeField] private Transform _firePos;
+    [SerializeField] private Transform _rotPos;
     
     private void OnEnable()
     {
@@ -36,16 +39,12 @@ public class Turret : BeaconLanding, IBeacon
                 
                 if (dis >= 0.5f && dis < 10f)
                 {
-                    transform.LookAt(tr.position);
+                    Vector3 targetPos = new Vector3(tr.position.x, _rotPos.position.y, tr.position.z);
+                    _rotPos.transform.LookAt(targetPos);
                     Fire();
                 }
             }
         }
-        
-        // transform.Rotate(Vector3.up, 90f);
-        // 있으면 공격
-        // 없으면 순찰 회전
-        // ??거리에 따라 데미지 다름??
     }
 
     private void Fire()
@@ -67,7 +66,7 @@ public class Turret : BeaconLanding, IBeacon
             bullet.SetIsShootPlayer(false);
             bullet.SetDamage(8);
             bullet.SetSpeed(40);
-            bullet.transform.position = transform.GetChild(0).position;
+            bullet.transform.position = _firePos.transform.position;
             bullet.transform.rotation = SetSpreadAngle();
 
             SetRemainingBullets(_remainingBullets - 1);
@@ -80,7 +79,7 @@ public class Turret : BeaconLanding, IBeacon
     { 
         float spreadAngle;
         
-        Quaternion baseAngle = gameObject.transform.GetChild(0).rotation;
+        Quaternion baseAngle = _firePos.transform.rotation;
         spreadAngle = 0.4f;
         
         float angle = Random.Range(-spreadAngle/2, spreadAngle/2);

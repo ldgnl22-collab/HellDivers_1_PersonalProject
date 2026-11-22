@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rayDistance = 100f;
     [SerializeField] private LayerMask _groundLayer;
+
+    [SerializeField] private Animator _animator;
 
     public event Action<Transform> OnPlayerMove;
     
@@ -57,6 +60,18 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
         moveDir.Normalize();
         
+        _animator.SetFloat("hor", _moveInput.x);
+        _animator.SetFloat("ver", _moveInput.y);
+
+        if (moveDir.magnitude > 0)
+        {
+            _animator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            _animator.SetLayerWeight(1, 0);
+        }
+        
         transform.Translate(moveDir * _moveSpeed * Time.deltaTime, Space.World);
         OnPlayerMove?.Invoke(transform);
     }
@@ -83,5 +98,6 @@ public class PlayerMovement : MonoBehaviour
     public void Init()
     {
         _stratagemSystem = GetComponent<StratagemSystem>();
+        _animator = GetComponent<Animator>();
     }
 }

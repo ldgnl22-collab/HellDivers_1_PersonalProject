@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     [SerializeField] private Vector3 _spawnPos;
     
     [SerializeField] private Transform _target;
+    [SerializeField] protected Animator _animator;
+    
     public EnemyData Stat { get { return _stat; } }
     public Vector3 SpawnPos { get { return _spawnPos; } }
     public Transform Target { get { return _target; } }
@@ -25,12 +27,13 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
     private void Awake()
     {
         CreateState();
-        SetPlayerPos();
+        _animator = GetComponent<Animator>();
     }
     
     private void Start()
     {
         ResetStat();
+        SetPlayerPos();
         StateMachine.Initialize(IdleState);
     }
 
@@ -80,6 +83,21 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
         StateMachine.ChangeState(DeadState);
         MissionManager.Instance.UpdateMissionProgress(MissionType.CountUp, 1);
         _isDead = true;
+    }
+    
+    public void SetAnim(Vector3 dir)
+    {
+        if (dir.magnitude > 0)
+        {
+            _animator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            _animator.SetLayerWeight(1, 0);
+        }
+        
+        _animator.SetFloat("hor", dir.x);
+        _animator.SetFloat("ver", dir.y);
     }
 
     private void CreateState()
