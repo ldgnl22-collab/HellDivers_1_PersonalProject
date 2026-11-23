@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private MissionData _mission;
-    private MissionProgress _missionProgress;
+    public static GameManager Instance;
 
-    private void Start()
+    private bool _isClear;
+    public bool IsClear => _isClear;
+
+    private int _totalKill;
+    public int TotalKill => _totalKill;
+
+    private void Awake() => SetSingleton();
+
+    public void EnemyKillCount(int count)
     {
-        MissionManager.Instance.OnMissionUpdate += MissionUpdate;
-        
-        _mission = MissionManager.Instance.GetMissionData(0);
-        _missionProgress = MissionManager.Instance.GetMissionProgress(0);
+        _totalKill += count;
     }
 
-    private void MissionUpdate()
+    private void SetSingleton()
     {
-        Debug.Log($"{_mission.Detail}" +
-                  $" 진행도 {_missionProgress.CurProgress} / {_mission.TargetValue}");
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

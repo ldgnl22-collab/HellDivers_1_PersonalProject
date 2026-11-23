@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,12 +9,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Vector3 _spawnPos;
     [SerializeField] private Vector2 _randomPoint;
 
-    [SerializeField] private int _shortEnemyCount;
-    [SerializeField] private int _longEnemyCount;
+    [SerializeField] private EnemyType _type;
     
     private void Update()
     {
-        SpawnEnemy(EnemyType.LongRange);
+        SpawnEnemy(_type);
     }
 
     private void SpawnEnemy(EnemyType enemyType)

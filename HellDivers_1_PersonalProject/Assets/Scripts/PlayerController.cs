@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     private PlayerMovement _playerMovement;
     
     [SerializeField] private int _currentHp;
+    
+    public event Action<float> OnPlayerHpChanged;
+    public event Action OnGameOver;
 
     private void Awake()
     {
@@ -88,6 +92,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         
         Debug.Log($"플레이어 체력 : {_currentHp}");
         _currentHp += damage;
+        OnPlayerHpChanged?.Invoke((float)_currentHp / 100);
     }
 
     public void TakeDamage(int damage)
@@ -99,6 +104,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
         Debug.Log($"플레이어 체력 : {_currentHp}");
         _currentHp -= damage;
+
+        if (_currentHp <= 0)
+        {
+            OnGameOver?.Invoke();
+        }
+        OnPlayerHpChanged?.Invoke((float)_currentHp / 100);
     }
 
     private void Init()

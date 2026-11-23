@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LongRangeEnemy : Enemy
 {
@@ -9,12 +11,22 @@ public class LongRangeEnemy : Enemy
     [SerializeField] private float _reloadRate = 1.7f;
     
     private float _elapsed = 0f;
-    
+
+    private void OnEnable()
+    {
+        PlayerController.Instance.OnGameOver += GameOverReturnToPool;
+    }
+
     private void LateUpdate()
     {
         OnDead();
         Fire();
         KeepFireDistance();
+    }
+    
+    private void GameOverReturnToPool()
+    {
+        PoolManager.Instance.LongEnemy.ReturnPool(this);
     }
     
     private void OnDead()

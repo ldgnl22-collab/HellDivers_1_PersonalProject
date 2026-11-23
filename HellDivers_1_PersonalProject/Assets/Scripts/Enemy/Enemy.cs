@@ -82,6 +82,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPoolable
         
         StateMachine.ChangeState(DeadState);
         MissionManager.Instance.UpdateMissionProgress(MissionType.CountUp, 1);
+        GameManager.Instance.EnemyKillCount(1);
         _isDead = true;
     }
     

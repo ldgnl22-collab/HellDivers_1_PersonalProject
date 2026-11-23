@@ -24,7 +24,7 @@ public class AttackState : IState
             _enemy.StateMachine.ChangeState(_enemy.ChaseState);
             return;
         }
-        
+
         AttackInterval();
     }
 
@@ -40,6 +40,7 @@ public class AttackState : IState
         if (_elapsed >= _enemy.Stat.AttackInterval)
         {
             Debug.Log("공격");
+            _enemy.StateMachine.ChangeState(_enemy.AttackState);
             _elapsed = 0f;
         }
         Vector3 targetDir = (_enemy.Target.position - _enemy.transform.position).normalized;

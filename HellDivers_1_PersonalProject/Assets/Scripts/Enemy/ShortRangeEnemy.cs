@@ -13,10 +13,20 @@ public class ShortRangeEnemy : Enemy
 {
     private float _elapsed = 0f;
     
+    private void OnEnable()
+    {
+        PlayerController.Instance.OnGameOver += GameOverReturnToPool;
+    }
+    
     private void LateUpdate()
     {
         OnDead();
         UpdateAnim();
+    }
+    
+    private void GameOverReturnToPool()
+    {
+        PoolManager.Instance.ShortEnemy.ReturnPool(this);
     }
 
     private void UpdateAnim()
@@ -40,6 +50,11 @@ public class ShortRangeEnemy : Enemy
         {
             _animator.SetInteger("State", (int)AnimState.Dead);
         }
+    }
+
+    private void SetAttackState()
+    {
+        
     }
     
     public void OnDead()

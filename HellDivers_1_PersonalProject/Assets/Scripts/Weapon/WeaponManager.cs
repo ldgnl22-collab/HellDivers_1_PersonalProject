@@ -36,6 +36,8 @@ public class WeaponManager : MonoBehaviour
 
     public event Action<int> OnDamageChange;
     public event Action<float> OnSpeedChange;
+
+    public event Action<GunData> OnWeaponChecked;
     
     private Coroutine _reloadRoutine;
     
@@ -160,6 +162,7 @@ public class WeaponManager : MonoBehaviour
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                 
+                OnWeaponChecked?.Invoke(_currentGun);
                 _lastFireTime = Time.time;
             }
         }
@@ -183,6 +186,7 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(_currentGun.ReloadTime);
         
         _currentGun.SetRemainingBullets(_currentGun.MaxMagazineSize);
+        OnWeaponChecked?.Invoke(_currentGun);
         Debug.Log("장전 완료");
         
         StopCoroutine(ReloadRoutine());
@@ -209,6 +213,7 @@ public class WeaponManager : MonoBehaviour
 
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
+        OnWeaponChecked?.Invoke(_currentGun);
         
         _lastFireTime = Time.time;
         SetGunReady();
@@ -232,6 +237,7 @@ public class WeaponManager : MonoBehaviour
             if (_guns[i].Name == _currentGun.Name)
             {
                 _guns[i].Prefab.SetActive(true);
+                OnWeaponChecked?.Invoke(_currentGun);
             }
             else
             {

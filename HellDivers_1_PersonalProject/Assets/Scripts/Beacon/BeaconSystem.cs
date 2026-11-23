@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ public class BeaconSystem : MonoBehaviour
 
     private bool _isBeaconActive;
     public bool IsBeaconActive => _isBeaconActive;
+    
+    public event Action<Dictionary<BeaconType, StratagemData>> OnBeaconChecked;
     
     private void Awake() => SetSingleton();
 
@@ -71,17 +74,10 @@ public class BeaconSystem : MonoBehaviour
         }
         
         _dictBeacon[_beaconType].UseCount++;
+        OnBeaconChecked?.Invoke(_dictBeacon);
 
         _isBeaconActive = true;
         _beacon = PoolManager.Instance.BeaconPool.TakePool();
-        
-        // foreach (BeaconType key in _dictBeacon.Keys)
-        // {
-        //     if (_dictBeacon[key].UseCount >= _dictBeacon[key].UseMaxCount)
-        //     {
-        //         _dictBeacon[key].IsUseCount = true;
-        //     }
-        // }
     }
 
     private void SetCoolTime()
@@ -114,6 +110,7 @@ public class BeaconSystem : MonoBehaviour
                 {
                     _dictBeacon[key].ElapsedTime += Time.deltaTime;
                 }
+                OnBeaconChecked?.Invoke(_dictBeacon);
             }
         }
     }
@@ -137,10 +134,6 @@ public class BeaconSystem : MonoBehaviour
         if (_isBeaconActive)
         {
             return;
-        }
-        
-        if (_dictBeacon.ContainsKey(_beaconType))
-        {
         }
     }
 
@@ -177,6 +170,13 @@ public class BeaconSystem : MonoBehaviour
         foreach (StratagemData key in _stratagemSystem.ListStratagemData)
         {
             _dictBeacon.Add(key.BeaconType, key);
+        }
+
+        foreach (StratagemData key in _dictBeacon.Values)
+        {
+            _dictBeacon[key.BeaconType].ElapsedTime = 0f;
+            _dictBeacon[key.BeaconType].UseCount = 0;
+            OnBeaconChecked?.Invoke(_dictBeacon);
         }
     }
 
