@@ -18,6 +18,11 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Image _BeaconCoolTimeTwo;
     [SerializeField] private TextMeshProUGUI _BeaconNameThree;
     [SerializeField] private TextMeshProUGUI _BeaconCountThree;
+
+    [SerializeField] private Sprite _arrowUp;
+    [SerializeField] private Sprite _arrowDown;
+    [SerializeField] private Sprite _arrowLeft;
+    [SerializeField] private Sprite _arrowRight;
     
     private void Start()
     {
@@ -40,6 +45,8 @@ public class InGameUI : MonoBehaviour
         _missionDetail.text = data.Detail;
         _missionProgress.text = $"{progress.CurProgress} / {data.TargetValue}";
     }
+    
+    
 
     private void SetBeaconInfo(Dictionary<BeaconType, StratagemData> data)
     {
