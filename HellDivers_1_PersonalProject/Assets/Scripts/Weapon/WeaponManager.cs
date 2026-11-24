@@ -31,9 +31,13 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private GameObject _shotgunPrefab;
     
     public static WeaponManager Instance;
+    
+    [SerializeField] private Animator _animator;
 
     public event Action<int> OnDamageChange;
     public event Action<float> OnSpeedChange;
+
+    public event Action<GunData> OnWeaponChecked;
     
     private Coroutine _reloadRoutine;
     
@@ -88,7 +92,7 @@ public class WeaponManager : MonoBehaviour
             }
             
             float inputScroll = _changeInput.action.ReadValue<float>();
-
+            
             if (inputScroll > 0 && _gunIndex >= 0)
             {
                 if (_gunIndex == 0)
@@ -158,6 +162,7 @@ public class WeaponManager : MonoBehaviour
                 _currentGun.SetRemainingBullets(_currentGun.RemainingBullets - 1);
                 Debug.Log($"{_currentGun.Name} 탄약 수 : {_currentGun.RemainingBullets} / {_currentGun.MaxMagazineSize}");
                 
+                OnWeaponChecked?.Invoke(_currentGun);
                 _lastFireTime = Time.time;
             }
         }
@@ -181,6 +186,7 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(_currentGun.ReloadTime);
         
         _currentGun.SetRemainingBullets(_currentGun.MaxMagazineSize);
+        OnWeaponChecked?.Invoke(_currentGun);
         Debug.Log("장전 완료");
         
         StopCoroutine(ReloadRoutine());
@@ -202,9 +208,12 @@ public class WeaponManager : MonoBehaviour
         _guns.Add(_pistolData);
         _guns.Add(_rifleData);
         _guns.Add(_shotgunData);
+        
+        _animator = GetComponent<Animator>();
 
         _gunIndex = 0;
         _currentGun = _guns[_gunIndex];
+        OnWeaponChecked?.Invoke(_currentGun);
         
         _lastFireTime = Time.time;
         SetGunReady();
@@ -228,11 +237,21 @@ public class WeaponManager : MonoBehaviour
             if (_guns[i].Name == _currentGun.Name)
             {
                 _guns[i].Prefab.SetActive(true);
+                OnWeaponChecked?.Invoke(_currentGun);
             }
             else
             {
                 _guns[i].Prefab.SetActive(false);
             }
+        }
+        
+        if (_currentGun.Name == "Pistol")
+        {
+            _animator.SetBool("IsPistol", true);
+        }
+        else
+        {
+            _animator.SetBool("IsPistol", false);
         }
     }
 

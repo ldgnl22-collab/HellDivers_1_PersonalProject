@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LongRangeEnemy : Enemy
 {
@@ -8,6 +10,13 @@ public class LongRangeEnemy : Enemy
     [SerializeField] private float _lastFireTime;
     [SerializeField] private float _reloadRate = 1.7f;
     
+    private float _elapsed = 0f;
+
+    private void OnEnable()
+    {
+        PlayerController.Instance.OnGameOver += GameOverReturnToPool;
+    }
+
     private void LateUpdate()
     {
         OnDead();
@@ -15,12 +24,23 @@ public class LongRangeEnemy : Enemy
         KeepFireDistance();
     }
     
+    private void GameOverReturnToPool()
+    {
+        PoolManager.Instance.LongEnemy.ReturnPool(this);
+    }
+    
     private void OnDead()
     {
         if (_isDead)
         {
-            PoolManager.Instance.LongEnemy.ReturnPool(this);
-            ResetStat();
+            _animator.SetBool("IsDead", true);
+            _elapsed += Time.deltaTime;
+
+            if (_elapsed >= 5f)
+            {
+                PoolManager.Instance.LongEnemy.ReturnPool(this);
+                ResetStat();
+            }
         }
     }
 
@@ -29,6 +49,7 @@ public class LongRangeEnemy : Enemy
         _maxMagazineSize = 25;
         _remainingBullets = 0;
         _lastFireTime = 0f;
+        _elapsed = 0f;
     }
 
     private void Fire()
@@ -90,6 +111,8 @@ public class LongRangeEnemy : Enemy
         if (dis <= Stat.MinAttackRange)
         {
             Vector3 targetDir = (transform.position - Target.position).normalized;
+            
+            SetAnim(targetDir);
 
             transform.position += targetDir * (Stat.MoveSpeed - 2) * Time.deltaTime;
 

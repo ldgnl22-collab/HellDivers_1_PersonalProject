@@ -7,40 +7,15 @@ public class MissionManager : MonoBehaviour
     public static MissionManager Instance { get; private set; }
     
     // 미션 데이터 및 진행도 데이터 리스트
-    private List<MissionData> _listMissionData = new List<MissionData>();
+    [SerializeField] private List<MissionData> _listMissionData = new List<MissionData>();
     private List<MissionProgress> _listMissionProgress =  new List<MissionProgress>();
     
-    public Action OnMissionUpdate;
+    public event Action<MissionData, MissionProgress> OnMissionUpdate;
     
     private void Awake()
     {
         Init();
         SetSingleton();
-    }
-    
-    // 미션 텍스트 가져가기
-    public string GetMissionDetail(int id)
-    {
-        string detail = string.Format(_listMissionData[id-1].Detail, _listMissionData[id-1].TargetValue);
-        return detail;
-    }
-
-    // 모든 미션 데이터 가져가기
-    public IEnumerable<MissionData> GetMissionDataList()
-    {
-        foreach (MissionData missionData in _listMissionData)
-        {
-            yield return missionData;
-        }
-    }
-
-    // 미션 진행정보 가져가기
-    public IEnumerable<MissionProgress> GetMissionProgress()
-    {
-        foreach (MissionProgress missionProgress in _listMissionProgress)
-        {
-            yield return missionProgress;
-        }
     }
     
     public MissionData GetMissionData(int id)
@@ -67,20 +42,20 @@ public class MissionManager : MonoBehaviour
             if (missionType == _listMissionData[i].MissionType)
             {
                 _listMissionProgress[i].AddProgress(_listMissionData[i], count);
-                OnMissionUpdate?.Invoke();
+                OnMissionUpdate?.Invoke(_listMissionData[i], _listMissionProgress[i]);
 
                 return;
             }
         }
     }
 
-    private void InitMissionData()
-    {
-        MissionData missionData
-            = new(0, MissionType.CountUp, "적 50명 처치", 50, 1);
-        
-        _listMissionData.Add(missionData);
-    }
+    // private void InitMissionData()
+    // {
+    //     MissionData missionData
+    //         = new(0, MissionType.CountUp, "Kill 50 Enemies", 50, 1);
+    //     
+    //     _listMissionData.Add(missionData);
+    // }
     
     private void InitProgressData()
     {
@@ -101,8 +76,9 @@ public class MissionManager : MonoBehaviour
     
     private void Init()
     {
-        InitMissionData();
+        // InitMissionData();
         InitProgressData();
+        OnMissionUpdate?.Invoke(_listMissionData[0], _listMissionProgress[0]);
     }
     
     private void SetSingleton()

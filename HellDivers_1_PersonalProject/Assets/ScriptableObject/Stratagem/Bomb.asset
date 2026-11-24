@@ -19,7 +19,7 @@ MonoBehaviour:
   _useType: 1
   _useMaxCount: 0
   _isUseCount: 0
-  _useCount: 1
+  _useCount: 0
   _coolTime: 20
   _isCoolTime: 1
-  _elapsedTime: 3.617341
+  _elapsedTime: 0
