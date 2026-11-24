@@ -13,6 +13,6 @@ public class TitleUI : MonoBehaviour
 
     private void OnStartButton()
     {
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("GameScene");
     }
 }

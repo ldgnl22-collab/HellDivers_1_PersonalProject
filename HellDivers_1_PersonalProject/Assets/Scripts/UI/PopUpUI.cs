@@ -50,7 +50,7 @@ public class PopUpUI : MonoBehaviour
     {
         Time.timeScale = 1;
         _gameOverPopup.gameObject.SetActive(false);
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("GameScene");
     }
     
     private void OnTitleButton()
