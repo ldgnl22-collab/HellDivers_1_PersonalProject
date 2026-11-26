@@ -9,13 +9,23 @@ public class MissionManager : MonoBehaviour
     // 미션 데이터 및 진행도 데이터 리스트
     [SerializeField] private List<MissionData> _listMissionData = new List<MissionData>();
     private List<MissionProgress> _listMissionProgress =  new List<MissionProgress>();
+
+    private bool _isFinalMission;
+    public bool IsFinalMission => _isFinalMission;
     
-    public event Action<MissionData, MissionProgress> OnMissionUpdate;
+    public event Action<List<MissionData>, List<MissionProgress>> OnMissionUpdate;
+    public event Action OnFinalMission;
     
     private void Awake()
     {
         Init();
         SetSingleton();
+    }
+
+    public void SetFinalMission(bool isFinal)
+    {
+        _isFinalMission = isFinal;
+        OnFinalMission?.Invoke();
     }
     
     public MissionData GetMissionData(int id)
@@ -42,7 +52,7 @@ public class MissionManager : MonoBehaviour
             if (missionType == _listMissionData[i].MissionType)
             {
                 _listMissionProgress[i].AddProgress(_listMissionData[i], count);
-                OnMissionUpdate?.Invoke(_listMissionData[i], _listMissionProgress[i]);
+                OnMissionUpdate?.Invoke(_listMissionData, _listMissionProgress);
 
                 return;
             }
@@ -61,8 +71,8 @@ public class MissionManager : MonoBehaviour
     {
         for (int i = 0; i < _listMissionData.Count; i++)
         {
-            MissionProgress missionProgress = new MissionProgress(_listMissionData[i].Id);
-            _listMissionProgress.Add(missionProgress);
+            _listMissionProgress.Add(new MissionProgress(_listMissionData[i].Id));
+            OnMissionUpdate?.Invoke(_listMissionData, _listMissionProgress);
         }
     }
 
@@ -78,7 +88,7 @@ public class MissionManager : MonoBehaviour
     {
         // InitMissionData();
         InitProgressData();
-        OnMissionUpdate?.Invoke(_listMissionData[0], _listMissionProgress[0]);
+        SetFinalMission(false);
     }
     
     private void SetSingleton()

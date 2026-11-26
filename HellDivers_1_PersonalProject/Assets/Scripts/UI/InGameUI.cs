@@ -26,6 +26,8 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Sprite _arrowLeft;
     [SerializeField] private Sprite _arrowRight;
     
+    [SerializeField] private GameObject _finalStratagemPanel;
+    
     private void Start()
     {
         PlayerController.Instance.OnPlayerHpChanged += SetHpBar;
@@ -34,6 +36,7 @@ public class InGameUI : MonoBehaviour
         MissionManager.Instance.OnMissionUpdate += SetMissionInfo;
         StratagemSystem.Instance.OnBeaconDataChanged += SetArrowPanel;
         StratagemSystem.Instance.OnStratagemInputChanged += CheckInputArrow;
+        StratagemSystem.Instance.OnFinalMissionActive += SetFinalArrow;
     }
 
     private void OnDisable()
@@ -44,12 +47,52 @@ public class InGameUI : MonoBehaviour
         MissionManager.Instance.OnMissionUpdate -= SetMissionInfo;
         StratagemSystem.Instance.OnBeaconDataChanged -= SetArrowPanel;
         StratagemSystem.Instance.OnStratagemInputChanged -= CheckInputArrow;
+        StratagemSystem.Instance.OnFinalMissionActive -= SetFinalArrow;
     }
 
-    private void SetMissionInfo(MissionData data, MissionProgress progress)
+    private void SetFinalArrow(StratagemData data)
     {
-        _missionDetail.text = data.Detail;
-        _missionProgress.text = $"{progress.CurProgress} / {data.TargetValue}";
+        for (int i = 0; i < 6; i++)
+        {
+            Image chlid = _finalStratagemPanel.transform.GetChild(i).gameObject.GetComponent<Image>();
+                
+            if (data.Stratagem[i] == ArrowType.Down)
+            {
+                chlid.sprite = _arrowDown;
+            }
+            else if (data.Stratagem[i] == ArrowType.Up)
+            {
+                chlid.sprite = _arrowUp;
+            }
+            else if (data.Stratagem[i] == ArrowType.Left)
+            {
+                chlid.sprite = _arrowLeft;
+            }
+            else if (data.Stratagem[i] == ArrowType.Right)
+            {
+                chlid.sprite = _arrowRight;
+            }
+        }
+    }
+
+    private void SetMissionInfo(List<MissionData> data, List<MissionProgress> progressData)
+    {
+        for (int i = 0; i < data.Count; i++)
+        {
+            if (progressData[i].IsClear)
+            {
+                continue;
+            }
+
+            if (data[i].MissionType == MissionType.Max)
+            {
+                MissionManager.Instance.SetFinalMission(true);
+            }
+
+            _missionDetail.text = data[i].Detail;
+            _missionProgress.text = $"{progressData[i].CurProgress} / {data[i].TargetValue}";
+            return;
+        }
     }
 
     private void CheckInputArrow(List<ArrowType> arrow, List<StratagemData> data)
@@ -65,6 +108,10 @@ public class InGameUI : MonoBehaviour
             {
                 Image spr = _listArrowPanel[i].transform.GetChild(j).GetComponent<Image>();
 
+                if (arrow.Count > data[i].Stratagem.Count)
+                {
+                    continue;
+                }
                 if (arrow[j] == data[i].Stratagem[j])
                 {
                     spr.color = Color.blue;

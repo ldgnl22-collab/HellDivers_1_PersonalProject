@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class StratagemSystem : MonoBehaviour
 {
@@ -23,10 +25,14 @@ public class StratagemSystem : MonoBehaviour
     public List<StratagemData> ListStratagemData => _listStratagemData;
     public List<StratagemData> ListCheckStratagem => _listCheckStratagem;
     
+    [SerializeField] private StratagemData _finalStratagemData;
+    public StratagemData FinalStratagemData => _finalStratagemData;
+    
     private BeaconSystem _beaconSystem;
     
     public event Action<List<StratagemData>> OnBeaconDataChanged;
     public event Action<List<ArrowType>, List<StratagemData>> OnStratagemInputChanged;
+    public event Action<StratagemData> OnFinalMissionActive;
 
     private void Awake()
     {
@@ -114,6 +120,17 @@ public class StratagemSystem : MonoBehaviour
         // 데이터 리스트 -> 체크용 리스트에 복사
         _listCheckStratagem = new(_listStratagemData);
         // UI 로 전달
+    }
+
+    public void RandomStratagemArrow()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            int rand = Random.Range(0, (int)ArrowType.Max);
+            _finalStratagemData.Stratagem.Add((ArrowType)rand);
+        }
+        
+        OnFinalMissionActive?.Invoke(_finalStratagemData);
     }
 
     private void InputKeyDown(ArrowType arrowType)

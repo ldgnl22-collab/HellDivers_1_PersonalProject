@@ -3,7 +3,8 @@ public enum BeaconType
 {
     Supply,
     Bomb,
-    Turret
+    Turret,
+    Final
 }
 
 public enum BeaconUseType

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2c97a551d2ca448253776c0d63a2a, type: 3}
   m_Name: Escape
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
-  _id: 2
-  _missionType: 0
+  _id: 4
+  _missionType: 1
   _detail: Mission complete. escape now
   _targetValue: 1
   _reward: 0

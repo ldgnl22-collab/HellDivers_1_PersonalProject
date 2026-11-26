@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   _id: 1
   _missionType: 0
-  _detail: Kill 50 Enemies
-  _targetValue: 50
+  _detail: Kill 1 Enemies
+  _targetValue: 1
   _reward: 0
