@@ -33,19 +33,21 @@ public class BeaconSystem : MonoBehaviour
     public bool IsBeaconActive => _isBeaconActive;
     
     public event Action<Dictionary<BeaconType, StratagemData>> OnBeaconChecked;
-    
-    private void Awake() => SetSingleton();
+
+    private void Awake()
+    {
+        SetSingleton();
+        Init();
+        SetBeaconKeys();
+    }
 
     private void Start()
     {
-        Init();
-        SetBeaconKeys();
     }
     
     private void Update()
     {
         HoldPosition();
-        // UseBeacon();
         Timer();
     }
 

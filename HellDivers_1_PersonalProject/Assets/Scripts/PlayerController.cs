@@ -104,12 +104,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
         Debug.Log($"플레이어 체력 : {_currentHp}");
         _currentHp -= damage;
-
+        
+        OnPlayerHpChanged?.Invoke((float)_currentHp / 100);
         if (_currentHp <= 0)
         {
             OnGameOver?.Invoke();
         }
-        OnPlayerHpChanged?.Invoke((float)_currentHp / 100);
     }
 
     private void Init()

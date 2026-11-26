@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class StratagemSystem : MonoBehaviour
 {
+    public static StratagemSystem Instance;
+    
     [SerializeField] private List<ArrowType> _listInputStratagem = new();
     public List<ArrowType> ListInputStratagem => _listInputStratagem;
     
@@ -21,10 +24,14 @@ public class StratagemSystem : MonoBehaviour
     public List<StratagemData> ListCheckStratagem => _listCheckStratagem;
     
     private BeaconSystem _beaconSystem;
+    
+    public event Action<List<StratagemData>> OnBeaconDataChanged;
+    public event Action<List<ArrowType>, List<StratagemData>> OnStratagemInputChanged;
 
-    private void Start()
+    private void Awake()
     {
         Init();
+        SetSingleton();
     }
     
     private void OnEnable()
@@ -70,20 +77,18 @@ public class StratagemSystem : MonoBehaviour
 
     private void CheckStratagem(int index)
     {
-        List<StratagemData> tempList = new();
         for (int i = 0; i < _listCheckStratagem.Count; i++)
         {
             if (_listCheckStratagem[i].Stratagem.Count <= index)
             {
                 continue;
             }
-            if (_listCheckStratagem[i].Stratagem[index] == _listInputStratagem[index])
+            if (_listCheckStratagem[i].Stratagem[index] != _listInputStratagem[index])
             {
-                tempList.Add(_listCheckStratagem[i]);
+                _listCheckStratagem.RemoveAt(i);
             }
+            OnStratagemInputChanged?.Invoke(_listInputStratagem, _listStratagemData);
         }
-        _listCheckStratagem.Clear();
-        _listCheckStratagem = new(tempList);
     }
 
     private void CallStratagem()
@@ -101,6 +106,7 @@ public class StratagemSystem : MonoBehaviour
     
     public void ResetStratagem()
     {
+        OnBeaconDataChanged?.Invoke(_listStratagemData);
         CallStratagem();
         
         _listInputStratagem.Clear();
@@ -131,5 +137,17 @@ public class StratagemSystem : MonoBehaviour
     {
         ResetStratagem();
         _beaconSystem = GetComponent<BeaconSystem>();
+        
+    }
+
+    private void SetSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 }

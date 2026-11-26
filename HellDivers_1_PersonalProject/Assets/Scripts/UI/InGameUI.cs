@@ -19,6 +19,8 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _BeaconNameThree;
     [SerializeField] private TextMeshProUGUI _BeaconCountThree;
 
+    [SerializeField] private List<GameObject> _listArrowPanel;
+
     [SerializeField] private Sprite _arrowUp;
     [SerializeField] private Sprite _arrowDown;
     [SerializeField] private Sprite _arrowLeft;
@@ -30,6 +32,8 @@ public class InGameUI : MonoBehaviour
         WeaponManager.Instance.OnWeaponChecked += SetWeaponInfo;
         BeaconSystem.Instance.OnBeaconChecked += SetBeaconInfo;
         MissionManager.Instance.OnMissionUpdate += SetMissionInfo;
+        StratagemSystem.Instance.OnBeaconDataChanged += SetArrowPanel;
+        StratagemSystem.Instance.OnStratagemInputChanged += CheckInputArrow;
     }
 
     private void OnDisable()
@@ -38,6 +42,8 @@ public class InGameUI : MonoBehaviour
         WeaponManager.Instance.OnWeaponChecked -= SetWeaponInfo;
         BeaconSystem.Instance.OnBeaconChecked -= SetBeaconInfo;
         MissionManager.Instance.OnMissionUpdate -= SetMissionInfo;
+        StratagemSystem.Instance.OnBeaconDataChanged -= SetArrowPanel;
+        StratagemSystem.Instance.OnStratagemInputChanged -= CheckInputArrow;
     }
 
     private void SetMissionInfo(MissionData data, MissionProgress progress)
@@ -45,8 +51,53 @@ public class InGameUI : MonoBehaviour
         _missionDetail.text = data.Detail;
         _missionProgress.text = $"{progress.CurProgress} / {data.TargetValue}";
     }
-    
-    
+
+    private void CheckInputArrow(List<ArrowType> arrow, List<StratagemData> data)
+    {
+        Color color = Color.white;
+        
+        for (int i = 0; i < data.Count; i++)
+        {
+            for (int j = 0; j < arrow.Count; j++)
+            {
+                Image spr = _listArrowPanel[i].transform.GetChild(j).GetComponent<Image>();
+
+                if (arrow[j] == data[i].Stratagem[j])
+                {
+                    spr.color = Color.blue;
+                }
+            }
+        }
+    }
+
+    private void SetArrowPanel(List<StratagemData> data)
+    {
+        for (int i = 0; i < data.Count; i++)
+        {
+            for (int j = 0; j < data[i].Stratagem.Count; j++)
+            {
+                Image spr = _listArrowPanel[i].transform.GetChild(j).GetComponent<Image>();
+                spr.color = Color.white;
+                
+                if (data[i].Stratagem[j] == ArrowType.Down)
+                {
+                    spr.sprite = _arrowDown;
+                }
+                else if (data[i].Stratagem[j] == ArrowType.Up)
+                {
+                    spr.sprite = _arrowUp;
+                }
+                else if (data[i].Stratagem[j] == ArrowType.Left)
+                {
+                    spr.sprite = _arrowLeft;
+                }
+                else if (data[i].Stratagem[j] == ArrowType.Right)
+                {
+                    spr.sprite = _arrowRight;
+                }
+            }
+        }
+    }
 
     private void SetBeaconInfo(Dictionary<BeaconType, StratagemData> data)
     {

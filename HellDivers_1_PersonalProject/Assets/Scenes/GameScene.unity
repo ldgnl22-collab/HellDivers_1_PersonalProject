@@ -331,6 +331,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 9070343936430133588, guid: be3ed9816d019ff4a85901f7a3aae376, type: 3}
+--- !u!1 &294041443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 391510059824505206, guid: 0e417e8e35c9613459d361838412a386, type: 3}
+  m_PrefabInstance: {fileID: 5021668870987036299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &302058919
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +448,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302058919}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &444585403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1828852623461532940, guid: 0e417e8e35c9613459d361838412a386, type: 3}
+  m_PrefabInstance: {fileID: 5021668870987036299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &488528985 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 717233306514075747, guid: 0e417e8e35c9613459d361838412a386, type: 3}
@@ -878,6 +888,11 @@ Transform:
   - {fileID: 302058920}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1437790565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5302167673501282503, guid: 0e417e8e35c9613459d361838412a386, type: 3}
+  m_PrefabInstance: {fileID: 5021668870987036299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1465649074 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5346256900981114061, guid: 0e417e8e35c9613459d361838412a386, type: 3}
@@ -1407,6 +1422,14 @@ PrefabInstance:
       propertyPath: _listStratagemData.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ddab14c3ba9b90a41a73e0936da0a04b, type: 2}
+    - target: {fileID: 2874806535960750085, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
+      propertyPath: '_listStratagemData.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d75aca28ea368984f8cfc59616c2df56, type: 2}
     - target: {fileID: 4513388946192981842, guid: a1ec3eb071f612747990ff7a4c1c1cd5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1547,39 +1570,39 @@ PrefabInstance:
     - target: {fileID: 411418003979147964, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 563570985102704288, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 893921800849717473, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 897619745785735312, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2976095704197100099, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3138982224284807486, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4299607470588543489, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 5889780016770280770, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6951814047831351611, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7558482421593227897, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1587,19 +1610,19 @@ PrefabInstance:
     - target: {fileID: 7845655400430914136, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7890951686685779860, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8123734654657081046, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 29e31833c32435a479338cf97dff5d06, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9124039169972582613, guid: 0e417e8e35c9613459d361838412a386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98140c950b799ee47b902aa69a4c4f0c, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1750,6 +1773,22 @@ PrefabInstance:
       propertyPath: _BeaconCoolTimeTwo
       value: 
       objectReference: {fileID: 125575179}
+    - target: {fileID: 6274521505929729155, guid: 91b6da1bf24c5c548b9e86c6d66fcad8, type: 3}
+      propertyPath: _listArrowPanel.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274521505929729155, guid: 91b6da1bf24c5c548b9e86c6d66fcad8, type: 3}
+      propertyPath: '_listArrowPanel.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1437790565}
+    - target: {fileID: 6274521505929729155, guid: 91b6da1bf24c5c548b9e86c6d66fcad8, type: 3}
+      propertyPath: '_listArrowPanel.Array.data[1]'
+      value: 
+      objectReference: {fileID: 444585403}
+    - target: {fileID: 6274521505929729155, guid: 91b6da1bf24c5c548b9e86c6d66fcad8, type: 3}
+      propertyPath: '_listArrowPanel.Array.data[2]'
+      value: 
+      objectReference: {fileID: 294041443}
     - target: {fileID: 6339714155049457575, guid: 91b6da1bf24c5c548b9e86c6d66fcad8, type: 3}
       propertyPath: _ClearPopup
       value: 

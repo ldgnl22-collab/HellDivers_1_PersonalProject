@@ -26,6 +26,8 @@ public class LongRangeEnemy : Enemy
     
     private void GameOverReturnToPool()
     {
+        if (this == null)
+            return;
         PoolManager.Instance.LongEnemy.ReturnPool(this);
     }
     

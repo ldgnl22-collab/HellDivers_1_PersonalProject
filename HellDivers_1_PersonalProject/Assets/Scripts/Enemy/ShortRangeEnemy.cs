@@ -26,6 +26,8 @@ public class ShortRangeEnemy : Enemy
     
     private void GameOverReturnToPool()
     {
+        if (this == null)
+            return;
         PoolManager.Instance.ShortEnemy.ReturnPool(this);
     }
 
