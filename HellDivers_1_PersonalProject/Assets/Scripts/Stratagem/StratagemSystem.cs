@@ -124,10 +124,13 @@ public class StratagemSystem : MonoBehaviour
 
     public void RandomStratagemArrow()
     {
+        _finalStratagemData = new();
         for (int i = 0; i < 6; i++)
         {
             int rand = Random.Range(0, (int)ArrowType.Max);
-            _finalStratagemData.Stratagem.Add((ArrowType)rand);
+            ArrowType arrowType = (ArrowType)rand;
+
+            _finalStratagemData.Stratagem.Add(arrowType);
         }
         
         OnFinalMissionActive?.Invoke(_finalStratagemData);
