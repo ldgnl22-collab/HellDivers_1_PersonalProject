@@ -54,7 +54,10 @@ public class InGameUI : MonoBehaviour
 
     private void CheckInputArrow(List<ArrowType> arrow, List<StratagemData> data)
     {
-        Color color = Color.white;
+        for (int i = 0; i < _listArrowPanel.Count; i++)
+        {
+            _listArrowPanel[i].SetActive(true);
+        }
         
         for (int i = 0; i < data.Count; i++)
         {
@@ -96,6 +99,11 @@ public class InGameUI : MonoBehaviour
                     spr.sprite = _arrowRight;
                 }
             }
+        }
+        
+        for (int i = 0; i < _listArrowPanel.Count; i++)
+        {
+            _listArrowPanel[i].SetActive(false);
         }
     }
 
