@@ -22,6 +22,16 @@ public class LongRangeEnemy : Enemy
         OnDead();
         Fire();
         KeepFireDistance();
+        UpdateAnim();
+    }
+
+    private void UpdateAnim()
+    {
+        if (StateMachine.CurrentState == ChaseState)
+        {
+            Vector3 targetDir = (transform.position - Target.position).normalized;
+            SetAnim(targetDir);
+        }
     }
     
     private void GameOverReturnToPool()
@@ -113,8 +123,6 @@ public class LongRangeEnemy : Enemy
         if (dis <= Stat.MinAttackRange)
         {
             Vector3 targetDir = (transform.position - Target.position).normalized;
-            
-            SetAnim(targetDir);
 
             transform.position += targetDir * (Stat.MoveSpeed - 2) * Time.deltaTime;
 

@@ -182,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &75334926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -770,33 +770,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7648866368203178933, guid: 766e2aeb223da1c4db674f594ef8f9e9, type: 3}
   m_PrefabInstance: {fileID: 3713642389992506423}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1275202551
-Rigidbody:
+--- !u!114 &1275202557
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275202545}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c396dd068aff76c4bae68f67efbcebbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinalHost
+  _playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 94
-  m_CollisionDetection: 0
+    m_Bits: 512
 --- !u!1 &1325857169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,8 +1563,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7648866368203178933, guid: 766e2aeb223da1c4db674f594ef8f9e9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1275202551}
+      insertIndex: 3
+      addedObject: {fileID: 1275202557}
   m_SourcePrefab: {fileID: 100100000, guid: 766e2aeb223da1c4db674f594ef8f9e9, type: 3}
 --- !u!1001 &5021668870987036299
 PrefabInstance:

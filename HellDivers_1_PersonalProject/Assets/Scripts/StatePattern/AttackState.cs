@@ -17,6 +17,7 @@ public class AttackState : IState
 
     public void Execute()
     {
+        
         float dis = _enemy.GetTargetDistance();
 
         if (dis > _enemy.Stat.AttackRange)
@@ -24,7 +25,7 @@ public class AttackState : IState
             _enemy.StateMachine.ChangeState(_enemy.ChaseState);
             return;
         }
-
+        
         AttackInterval();
     }
 
@@ -43,9 +44,11 @@ public class AttackState : IState
             _enemy.StateMachine.ChangeState(_enemy.AttackState);
             _elapsed = 0f;
         }
+        else
+        {
+            _enemy.StateMachine.ChangeState(_enemy.ChaseState);
+        }
         Vector3 targetDir = (_enemy.Target.position - _enemy.transform.position).normalized;
-        
-        _enemy.SetAnim(targetDir);
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDir);
         _enemy.transform.rotation = Quaternion.Slerp(_enemy.transform.rotation, targetRotation, 0.3f);

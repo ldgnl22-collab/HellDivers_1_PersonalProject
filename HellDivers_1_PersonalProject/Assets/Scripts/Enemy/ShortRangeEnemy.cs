@@ -12,6 +12,10 @@ enum AnimState
 public class ShortRangeEnemy : Enemy
 {
     private float _elapsed = 0f;
+    [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private bool _isPlayerDetect;
+
+    private int _attackDamage;
     
     private void OnEnable()
     {
@@ -23,12 +27,32 @@ public class ShortRangeEnemy : Enemy
         OnDead();
         UpdateAnim();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_isPlayerDetect && (_playerLayer.value == (1 << other.gameObject.layer)))
+        {
+            Debug.Log("ShortAttack");
+            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+
+            if (damageable != null)
+            {
+                damageable.TakeDamage(_attackDamage);
+                _isPlayerDetect = false;
+            }
+        }
+    }
     
     private void GameOverReturnToPool()
     {
         if (this == null)
             return;
         PoolManager.Instance.ShortEnemy.ReturnPool(this);
+    }
+
+    public void OnAttack()
+    {
+        _isPlayerDetect = true;
     }
 
     private void UpdateAnim()
@@ -52,11 +76,6 @@ public class ShortRangeEnemy : Enemy
         {
             _animator.SetInteger("State", (int)AnimState.Dead);
         }
-    }
-
-    private void SetAttackState()
-    {
-        
     }
     
     public void OnDead()
